@@ -15,6 +15,13 @@
 	<name>arch EJB module</name>
 
 	<dependencies>
+	
+		<dependency>
+			<groupId>com.kmware</groupId>
+			<artifactId>arch-annotations</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.ejb</groupId>

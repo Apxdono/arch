@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 import com.kmware.jpa.annotations.TrackChanges;
-import com.kmware.jsf.annotation.UIField;
+import com.kmware.ui.annotations.UIField;
 
 
 @MappedSuperclass
@@ -48,7 +48,7 @@ public abstract class DBObject implements Serializable, Cloneable {
 	}
 	
 	@TrackChanges
-	@UIField(label="displayName")
+	@UIField(label="displayName",required=true,visibleInList=true)
 	@Column(name="display_name",length=255,nullable=false)
 	public String getDisplayName() {
 		return displayName;
@@ -60,7 +60,7 @@ public abstract class DBObject implements Serializable, Cloneable {
 	}
 
 	@TrackChanges
-	@UIField(label="deleted")
+	@UIField(label="deleted",visibleInList=true)
 	@Column(name="deleted",nullable=false)
 	public Boolean getDeleted() {
 		return deleted;

@@ -1,7 +1,11 @@
 package com.kmware.web.bbean.util;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.el.ELContext;
@@ -16,14 +20,15 @@ import javax.persistence.Column;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
-import com.kmware.jsf.annotation.UIEntity;
-import com.kmware.jsf.annotation.UIField;
+import com.kmware.ui.annotations.UIField;
+
+
 
 @Named("reflUtls")
 @RequestScoped
 public class ReflectionBean {
 
-	public int fieldLength(Object o, String fieldName) {
+	/*public int fieldLength(Object o, String fieldName) {
 		System.out.println("FUUCK");
 		if (StringUtils.isNotBlank(fieldName)) {
 			Column annot = this.getAnnotation(o, fieldName, Column.class);
@@ -97,6 +102,55 @@ public class ReflectionBean {
 			}
 		}
 		return null;
+	}*/
+	
+	public List<FormRenderField> getFormFields(Object o){
+		
+		List<FormRenderField> fields = new ArrayList<FormRenderField>();
+		
+		List<Method> methods = new ArrayList<Method>();
+		
+		if(o!=null){
+			for (Method method : methods) {
+				if(method.getName().startsWith("get")){
+					//We dont need get class for now
+					if(method.getName().equals("getClass")){
+						continue;
+					}
+					FormRenderField field = new FormRenderField();
+					
+					//Chech if we have a ui field
+					if(method.isAnnotationPresent(UIField.class)){
+						UIField annot = method.getAnnotation(UIField.class);
+						field.setLabel(annot.label());
+						field.setRequired(annot.required());
+						try {
+							field.setValue(method.invoke(o, new Object[]{}));
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						} catch (InvocationTargetException e) {
+							e.printStackTrace();
+						}
+						
+						
+					}//endif UIField
+					
+					if(method.isAnnotationPresent(Column.class)){
+						Column col = method.getAnnotation(Column.class);
+						field.setMaxLength(col.length());
+					}
+					
+				}//endif get method
+			}//end foreach
+			
+			
+		}
+		
+		
+		
+		return fields;		
 	}
 
 }
