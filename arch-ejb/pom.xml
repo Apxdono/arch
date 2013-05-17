@@ -15,13 +15,6 @@
 	<name>arch EJB module</name>
 
 	<dependencies>
-	
-		<dependency>
-			<groupId>com.kmware</groupId>
-			<artifactId>arch-annotations</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>javax.ejb</groupId>
@@ -33,6 +26,12 @@
 		<dependency>
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.kmware</groupId>
+			<artifactId>arch-form-renderer</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Import the JPA API, we use provided scope as the API is included in 
