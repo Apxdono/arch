@@ -6,3 +6,9 @@
                 <password>postgres</password>
         </security>
 </datasource>
+
+
+the driver declaraion
+<driver name="postgresql" module="org.postgresql">
+	<xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+</driver>

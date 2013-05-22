@@ -60,6 +60,7 @@
 			<version>3.0.1</version>
 		</dependency>
 
+
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>el-api</artifactId>
@@ -99,14 +100,6 @@
 			<artifactId>jfreechart</artifactId>
 			<version>1.0.13</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>3.2.2.RELEASE</version>
-		</dependency>
-
-
 
 		<!-- Import the JPA API, we use provided scope as the API is included in 
 			JBoss AS 7 -->

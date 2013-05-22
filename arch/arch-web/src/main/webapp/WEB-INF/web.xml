@@ -10,16 +10,21 @@
 	<filter>
 		<description>Explicitly set the encoding of the page to UTF-8</description>
 		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<filter-class>com.kmware.web.filter.CharacterEncodingFilter</filter-class>
+		
 		<init-param>
-			<param-name>encoding</param-name>
+			<param-name>requestEncoding</param-name>
 			<param-value>UTF-8</param-value>
 		</init-param>
 		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
+			<param-name>responseEncoding</param-name>
+			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<!-- Activate the JSF 2.0 servlet -->
 	<!-- The JSF servlet declaration and mapping are not required for GlassFish 

@@ -73,7 +73,6 @@ public class FormFieldsetRenderer extends Renderer {
 				writer.endElement("div");
 			}
 		}
-		System.out.println("End");
 	}
 
 	// Process each visible field
@@ -91,7 +90,7 @@ public class FormFieldsetRenderer extends Renderer {
 			if (field.isRequired()) {
 				HtmlMessage msg = new HtmlMessage();
 				msg.setId(field.getFieldName() + "msg");
-				msg.setFor(input.getId());
+				msg.setFor(input.getClientId());
 				component.getChildren().add(msg);
 			} else {
 				HtmlOutputText txt = new HtmlOutputText();

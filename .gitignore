@@ -1,6 +1,8 @@
 *.class
 target
 .settings
+.project
+.classpath
 .iml
 .idea
 .tmp
