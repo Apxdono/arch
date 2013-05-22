@@ -1,0 +1,23 @@
+table, table tr,table tr td { 
+	/* border:1px solid black; */
+	
+}
+
+.column{
+	vertical-align: middle;
+	padding:5px 5px;
+	height:16px;
+}
+
+.column.label {
+	width: 100px; 
+}
+
+.column.input {
+	width: 200px;
+}
+
+.formtable{
+	margin:0 22px;
+	width:640px;
+}

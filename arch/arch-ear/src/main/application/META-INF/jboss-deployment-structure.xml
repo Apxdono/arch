@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure>
+	<ear-subdeployments-isolated>true</ear-subdeployments-isolated>
+	<deployment>
+		<dependencies>
+			<module name="javax.faces.api" />
+		</dependencies>
+	</deployment>
+	<sub-deployment name="arch-ejb-1.0-SNAPSHOT.jar">
+		<dependencies>
+			<module name="com.kmware" slot="main"/>
+		</dependencies>
+	</sub-deployment>
+	<sub-deployment name="arch-web-1.0-SNAPSHOT.war">
+		<dependencies>
+			<module name="com.kmware" />
+			<module name="javax.faces.api" />
+		</dependencies>
+	</sub-deployment>
+</jboss-deployment-structure>

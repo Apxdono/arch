@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<title>Custom input field</title>
+</head>
+<body>
+<composite:interface>
+	<composite:attribute name="entity"/>
+	<composite:attribute name="field"/>
+</composite:interface>
+<composite:implementation>
+	<h:inputText value="#{cc.attrs.id}input" rendered="#{cc.attrs.rendered}"  />
+</composite:implementation>
+</body>
+</html>
