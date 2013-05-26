@@ -12,7 +12,9 @@
 		<ui:define name="content">
 			<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
 				<cst:formFieldsets fieldsets="#{subtopicBean.formFieldsets}"/>
-				<h:commandButton value="Save" action="#{subtopicBean.saveSubtopic}" />
+				<h:commandButton value="Save">
+					<f:ajax event="click" listener="#{subtopicBean.saveSubtopic}" execute="@all" render="crudform" />
+				</h:commandButton>
 			</h:form>
 		</ui:define>
 	</ui:composition>

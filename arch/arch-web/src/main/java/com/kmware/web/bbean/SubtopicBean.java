@@ -1,5 +1,6 @@
 package com.kmware.web.bbean;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.el.ValueExpression;
 
+import org.openfaces.util.Log;
+
 import com.kmware.model.Subtopic;
 import com.kmware.ui.processors.FormProcessor;
 import com.kmware.ui.scaffold.FormField;
@@ -21,7 +24,6 @@ import com.kmware.ui.scaffold.FormFieldset;
 public class SubtopicBean extends CommonCRUDBean<Subtopic> {
 	private static final long serialVersionUID = -1638088498754486802L;
 
-	private String test;
 	private FormProcessor formProcessor;
 	private List<FormFieldset> formFieldsets;
 
@@ -30,7 +32,6 @@ public class SubtopicBean extends CommonCRUDBean<Subtopic> {
 	public void init() {
 		// TODO Auto-generated method stub
 		super.init();
-		test = "alala";
 		formProcessor = new FormProcessor("subtopicBean", "entity");
 	}
 
@@ -50,15 +51,23 @@ public class SubtopicBean extends CommonCRUDBean<Subtopic> {
 		entity = new Subtopic();
 	}
 
-	public String saveSubtopic() {
-		System.out.println("Saving entity. display name: "
+	public void saveSubtopic() {
+		System.out.println("\r\nSaving entity. display name: "
 				+ entity.getDisplayName()
 				+ " Encoding: "
 				+ ((HttpServletRequest) FacesContext.getCurrentInstance()
 						.getExternalContext().getRequest())
-						.getCharacterEncoding());
+						.getCharacterEncoding() + "\r\n");
 		dao.presist(entity);
-		return "list.jsf?faces-redirect=true";
+//		FacesContext
+//				.getCurrentInstance()
+//				.getApplication()
+//				.getNavigationHandler()
+//				.handleNavigation(FacesContext.getCurrentInstance(), null,
+//						"list.jsf?bitch-slap=true");
+		redirectTo("list.jsf");
+		// return "success";
 	}
 
+	
 }

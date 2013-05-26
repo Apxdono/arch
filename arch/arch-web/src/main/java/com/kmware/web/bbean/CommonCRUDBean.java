@@ -1,11 +1,13 @@
 package com.kmware.web.bbean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import javax.persistence.Column;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +23,7 @@ public abstract class CommonCRUDBean<T extends DBObject> implements Serializable
 	@EJB
 	protected CommonDAO dao;
 	protected T entity;
-	private boolean debug = false;
+	private boolean debug = true;
 	private Logger logger = Logger.getLogger(getClass().getName());
 		
 	public void log(String message){
@@ -38,23 +40,19 @@ public abstract class CommonCRUDBean<T extends DBObject> implements Serializable
 	
 	protected abstract void initEntity();
 
-	public String save() {
+	public void save() {
 		DAOMessage msg = dao.presist(entity);
 		if (msg != DAOMessage.OK) {
-
-			return "";
+			redirectTo("list.jsf");
 		}
-		return "list.jsf?faces-redirect=true";
 	}
 
-	public String update() {
+	public void update() {
 		Object[] result = dao.update(entity);
 		DAOMessage msg = (DAOMessage) result[0];
 		if (msg != DAOMessage.OK) {
-
-			return "";
+			redirectTo("view.jsf");
 		}
-		return "";
 	}
 
 	public T getEntity() {
@@ -64,21 +62,17 @@ public abstract class CommonCRUDBean<T extends DBObject> implements Serializable
 	public void setEntity(T entity) {
 		this.entity = entity;
 	}
-	
-	public int fieldLength(String fieldName){
-		if(StringUtils.isNotBlank(fieldName)){
-			Method m = null;
-			try {
-				m = entity.getClass().getMethod("get"+WordUtils.capitalize(fieldName), new Class<?>[]{});
-			} catch (Exception e) {
 
-			}
-			if(m!=null && m.isAnnotationPresent(Column.class)){
-				Column annot = m.getAnnotation(Column.class);
-				return annot.length();
-			}
-		}		
-		return 255;
+	//Used for redirects. Best I came up with to fight the form-resubmission problem
+	//and empty data submissions. Looks like a valid PRG concept so should be okay 
+	protected void redirectTo(String url){
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+		} catch (IOException e) {
+			this.log("SOMETHING HAPPENED AND I CAN'T GO TO:"+url+" . I'M REALLY SORRY :(");
+			this.log("See the stacktrace below maybe it will be helpful");
+			e.printStackTrace();
+		}
 	}
 
 }
