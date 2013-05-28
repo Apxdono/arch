@@ -16,12 +16,16 @@ import org.apache.commons.lang3.text.WordUtils;
 import com.kmware.dao.CommonDAO;
 import com.kmware.dao.DAOMessage;
 import com.kmware.model.DBObject;
+import com.kmware.signleton.FieldCache;
 
 public abstract class CommonCRUDBean<T extends DBObject> implements Serializable {
 	private static final long serialVersionUID = -917866548312200765L;
 
 	@EJB
 	protected CommonDAO dao;
+	@EJB
+	protected FieldCache cache;
+	
 	protected T entity;
 	private boolean debug = false;
 	private Logger logger = Logger.getLogger(getClass().getName());
