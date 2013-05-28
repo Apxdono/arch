@@ -8,7 +8,6 @@ import javax.faces.context.FacesContext;
 public class FormField implements Serializable {
 	private static final long serialVersionUID = -4278025575614877973L;
 	private boolean required;
-	private ValueExpression el;
 	private String label;
 	private String expression;
 	private int maxLength;
@@ -39,21 +38,12 @@ public class FormField implements Serializable {
 		this.required = required;
 	}
 
-	public ValueExpression getValue() {
-		if (el == null) {
-			this.el = FacesContext
-					.getCurrentInstance()
-					.getApplication()
-					.getExpressionFactory()
-					.createValueExpression(
-							FacesContext.getCurrentInstance().getELContext(),
-							this.expression, this.returnType);
-		}
-		return el;
+	public String getExpression() {
+		return expression;
 	}
-
-	public void setValue(ValueExpression o) {
-		el = o;
+	
+	public void setExpression(String expression) {
+		this.expression = expression;
 	}
 
 	public String getLabel() {

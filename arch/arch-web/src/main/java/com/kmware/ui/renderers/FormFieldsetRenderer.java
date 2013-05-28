@@ -125,7 +125,7 @@ public class FormFieldsetRenderer extends Renderer {
 			HtmlInputText input = (HtmlInputText) getApplication()
 					.createComponent(HtmlInputText.COMPONENT_TYPE);
 			input.setId(field.getFieldName() + "input");
- 			final ValueExpression ve = field.getValue(); 
+			final ValueExpression ve = getExpressionFactory().createValueExpression(getELContext(), field.getExpression(), field.getReturnType()); 
 			input.setValueExpression("value", ve);
 			input.setLabel(field.getLabel());
 			input.setRequired(field.isRequired());
@@ -141,7 +141,7 @@ public class FormFieldsetRenderer extends Renderer {
 		HtmlSelectBooleanCheckbox input = (HtmlSelectBooleanCheckbox) getApplication()
 				.createComponent(HtmlSelectBooleanCheckbox.COMPONENT_TYPE);
 		input.setId(field.getFieldName() + "chkbx");
-		final ValueExpression ve = field.getValue(); 
+		final ValueExpression ve = getExpressionFactory().createValueExpression(getELContext(), field.getExpression(), field.getReturnType()); 
 		input.setValueExpression("value", ve);
 		input.setLabel(field.getLabel());
 		result = input;

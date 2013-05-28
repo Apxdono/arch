@@ -23,7 +23,7 @@ public abstract class CommonCRUDBean<T extends DBObject> implements Serializable
 	@EJB
 	protected CommonDAO dao;
 	protected T entity;
-	private boolean debug = true;
+	private boolean debug = false;
 	private Logger logger = Logger.getLogger(getClass().getName());
 		
 	public void log(String message){

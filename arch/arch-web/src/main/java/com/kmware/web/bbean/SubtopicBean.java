@@ -8,6 +8,7 @@ import javax.el.ELContext;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.el.ValueExpression;
@@ -26,18 +27,22 @@ public class SubtopicBean extends CommonCRUDBean<Subtopic> {
 
 	private FormProcessor formProcessor;
 	private List<FormFieldset> formFieldsets;
+	
+	@Inject
+	private ReflectionFactoryBean refBean;
 
 	@Override
 	@PostConstruct
 	public void init() {
 		// TODO Auto-generated method stub
 		super.init();
-		formProcessor = new FormProcessor("subtopicBean", "entity");
+//		formProcessor = new FormProcessor("subtopicBean", "entity");
 	}
 
 	public List<FormFieldset> getFormFieldsets() {
 		if (formFieldsets == null) {
-			formFieldsets = formProcessor.getFormFieldsets(this.entity);
+//			formFieldsets = (new FormProcessor("subtopicBean", "entity")).getFormFieldsets(this.entity);
+			formFieldsets = refBean.getFieldsets("subtopicBean", this.entity);
 		}
 		return formFieldsets;
 	}
@@ -52,12 +57,12 @@ public class SubtopicBean extends CommonCRUDBean<Subtopic> {
 	}
 
 	public void saveSubtopic() {
-		System.out.println("\r\nSaving entity. display name: "
+		/*System.out.println("\r\nSaving entity. display name: "
 				+ entity.getDisplayName()
 				+ " Encoding: "
 				+ ((HttpServletRequest) FacesContext.getCurrentInstance()
 						.getExternalContext().getRequest())
-						.getCharacterEncoding() + "\r\n");
+						.getCharacterEncoding() + "\r\n");*/
 		dao.presist(entity);
 //		FacesContext
 //				.getCurrentInstance()
