@@ -11,15 +11,15 @@
 	<ui:composition template="/WEB-INF/templates/default.xhtml">
 		<ui:define name="content">
 			<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
-				<cst:formFieldsets fieldsets="#{subtopicBean.formFieldsets}"/>		
-				<!-- h:panelGrid id="commongrid" columns="3">
+				<!-- cst:formFieldsets fieldsets="#{subtopicBean.formFieldsets}"/-->		
+				<h:panelGrid id="commongrid" columns="3">
 					<h:outputLabel value="displayName" id="displayNamelabel" for="displayNameinput"/>
 					<h:inputText id="displayNameinput" maxlength="255" label="displayName" required="true" value="#{subtopicBean.entity.displayName}" />
 					<h:message id="displayNamemsg" for="displayNameinput"/>
 					<h:outputLabel value="deleted" id="deletedlabel" for="deletedchkbx"/>
 					<h:selectBooleanCheckbox id="deletedchkbx" label="deleted" value="#{subtopicBean.entity.deleted}" />
 					<h:outputText value="" />
-				</h:panelGrid-->	
+				</h:panelGrid>	
 				<h:commandButton id="save" value="Save">
 					<f:ajax event="click" listener="#{subtopicBean.saveSubtopic}" execute="@all" render="crudform" />
 				</h:commandButton>

@@ -28,7 +28,7 @@ public abstract class DBObject implements Serializable, Cloneable {
 	private Long version;
 	private Boolean deleted;
 	private GregorianCalendar dateCreated;
-	private GregorianCalendar dateLastUpdated;
+	private GregorianCalendar dateModified;
 	
 	public DBObject() {
 		id = UUID.randomUUID().toString();
@@ -36,13 +36,14 @@ public abstract class DBObject implements Serializable, Cloneable {
 		version = 0L;
 		deleted = false;
 		dateCreated = new GregorianCalendar();
-		dateLastUpdated = new GregorianCalendar();
+		dateModified = new GregorianCalendar();
 		dateCreated.setTimeZone(TimeZone.getTimeZone("GMT"));
-		dateLastUpdated.setTimeZone(TimeZone.getTimeZone("GMT"));
+		dateModified.setTimeZone(TimeZone.getTimeZone("GMT"));
 		
 	}
 
 	@Id
+	@Column(name="id",length=36)
 	public String getId() {
 		return id;
 	}
@@ -74,11 +75,12 @@ public abstract class DBObject implements Serializable, Cloneable {
 	}
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@UIField(label="dateLastUpdated",showInForm=false)
-	@Column(name="date_last_updated")
-	public Date getDateLastUpdated() {
-		return dateLastUpdated.getTime();
+	@UIField(label="dateModified",showInForm=false)
+	@Column(name="date_modified")
+	public Date getDateModified() {
+		return dateModified.getTime();
 	}
+	
 
 	public void setId(String id) {
 		this.id = id;
@@ -96,12 +98,13 @@ public abstract class DBObject implements Serializable, Cloneable {
 		this.deleted = deleted;
 	}
 
+	
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated.setTimeInMillis(dateCreated.getTime());
 	}
 
-	public void setDateLastUpdated(Date dateLastUpdated) {
-		this.dateLastUpdated.setTimeInMillis(dateLastUpdated.getTime());
+	public void setDateModified(Date dateModified) {
+		this.dateModified.setTimeInMillis(dateModified.getTime());
 	}
 
 	@Override
@@ -144,12 +147,12 @@ public abstract class DBObject implements Serializable, Cloneable {
 	@PrePersist
 	public void prePersist(){
 		dateCreated.setTimeInMillis((new Date()).getTime());
-		dateLastUpdated.setTimeInMillis(dateCreated.getTimeInMillis());
+		dateModified.setTimeInMillis(dateCreated.getTimeInMillis());
 	}
 	
 	@PreUpdate
 	public void preUpdate(){
-		dateLastUpdated.setTimeInMillis((new Date()).getTime());
+		dateModified.setTimeInMillis((new Date()).getTime());
 	}
 	
 }
