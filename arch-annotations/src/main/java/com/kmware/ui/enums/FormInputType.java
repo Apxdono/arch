@@ -1,0 +1,13 @@
+package com.kmware.ui.enums;
+
+public enum FormInputType {
+	TEXT, 
+	CHECKBOX, 
+	RADIO,
+	AUTOCOMPLETE,
+	ATTACHEMENT, 
+	MENU_SELECTION_SINGLE,
+	LIST_SELECTION_SINGLE,
+	LIST_SELECTION_MULTIPLE,
+	PICK_LIST
+}
