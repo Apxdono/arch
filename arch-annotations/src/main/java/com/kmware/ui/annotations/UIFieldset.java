@@ -6,13 +6,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.kmware.ui.constant.StringConstants;
+
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value={ElementType.TYPE})
 @Inherited
 public @interface UIFieldset {
-	public static final String COMMON_ID = "common";
-	public static final String COMMON_LABEL = "baseName";
 	public int position() default 0;
-	public String id() default COMMON_ID;
-	public String label() default COMMON_LABEL;
+	public String id() default StringConstants.FIELDSET_DEFAULT_ID;
+	public String label() default StringConstants.FIELDSET_DEFAULT_NAME;
 }

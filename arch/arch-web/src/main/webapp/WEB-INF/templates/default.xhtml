@@ -10,14 +10,14 @@
 </h:head>
 <h:body>
 	<f:facet name="last">
-		<h:outputStylesheet name="screen.css" library="css"/>
-		<h:outputStylesheet name="tables.css" library="css"/>
-		<h:outputStylesheet name="forms.css" library="css"/>
-		<h:outputStylesheet name="prettyCheckboxes.css" library="css"/>
-		<h:outputScript name="jquery-1.9.1.min.js" library="javascript" target="head"/>
-		<h:outputScript name="prettyCheckboxes.js" library="javascript" target="head"/>
+		<h:outputStylesheet name="screen.css" library="css" />
+		<h:outputStylesheet name="default.css" library="css" />
+		<h:outputStylesheet name="tables.css" library="css" />
+		<h:outputStylesheet name="forms.css" library="css" />
+		<h:outputScript name="jquery-1.9.1.min.js" library="javascript"
+			target="head" />
 	</f:facet>
-			
+
 	<script type="text/javascript">
 		
 	</script>
@@ -27,18 +27,27 @@
 				<div class="basewrap">Header</div>
 			</div>
 			<div id="header-bot">
-				<div class="basewrap">Navigation<br/>ALALA</div>
+				<div class="basewrap">
+					Navigation<br />ALALA
+				</div>
 			</div>
 		</div>
 		<div id="main">
 			<div class="basewrap">
-			<div id="side">aa</div>
-			
-			<div id="content">
-				<ui:insert name="content" /></div>
+				<div id="outer">
+					<div id="inner">
+						<div id="side">
+							<ul id="sidemenu">
+								<li><a href="#">Countries</a></li>
+								<li><a href="#">Cities</a></li>
+								<li><a href="#">Companies</a></li>
+							</ul>
+						</div>
+						<div id="content">HI</div>
+					</div>
+				</div>
 			</div>
 		</div>
-
 	</div>
 
 	<div id="footer">

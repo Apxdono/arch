@@ -21,7 +21,8 @@
 					<h:outputText value="" />
 				</h:panelGrid>	
 				<h:commandButton id="save" value="Save">
-					<f:ajax event="click" listener="#{subtopicBean.saveSubtopic}" execute="@all" render="crudform" />
+					<f:ajax event="click"  listener="#{subtopicBean.saveSubtopic}" execute="@all" render="crudform" />
+					<f:ajax ></f:ajax>
 				</h:commandButton>
 			</h:form>
 		</ui:define>

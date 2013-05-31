@@ -73,33 +73,30 @@ table {
 .off {
 	display: none !important;
 }
-/* HTML5 display-role reset for older browsers */
+
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
 	{
 	display: block;
 }
+/* HTML5 display-role reset for older browsers */
 
-body {
-	line-height: 1;
-	position: relative;
-	min-height: 100%;
-	overflow-y: scroll;
-	background: #ffffff; /* Old browsers */
-	background: -moz-linear-gradient(top, #ffffff 0%, #dddddd 100%);
-	/* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff),
-		color-stop(100%, #dddddd) ); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #ffffff 0%, #dddddd 100%);
-	/* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #ffffff 0%, #dddddd 100%);
-	/* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #ffffff 0%, #dddddd 100%);
-	/* IE10+ */
-	background: linear-gradient(to bottom, #ffffff 0%, #dddddd 100%);
-	/* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#ffffff',
-		endColorstr='#dddddd', GradientType=0 ); /* IE6-9 */
-	background-attachment: fixed;
+form,table,input,label,div,span {
+	font: inherit;
+}
+
+
+fieldset{
+	border:1px solid #CCC;
+	border-radius:5px;
+	padding:5px 5px 10px 5px;
+	margin-bottom:5px;
+}
+
+fieldset legend{
+	display:block;
+	padding:0 10px;
+	font-weight: bold;
+	color:#666;
 }
 
 ol,ul {
@@ -124,14 +121,19 @@ table {
 /*RESET END*/
 html,body {
 	height: 100%;
+	
 }
 
 #wrap {
+	position: relative;
 	min-height: 100%;
+    /*background:#646464;*/
 }
 
-#main {
-	overflow: auto;
+
+* html #main { height: 100%; } /* for IE */
+
+
 	padding-bottom: 150px;
 } /* must be same height as the footer */
 #footer {
@@ -151,67 +153,3 @@ body:before {
 	/
 }
 
-#header {
-	height: 100px;
-}
-
-#header-top {
-	height: 52px;
-	width: 100%;
-}
-
-#header-bot {
-	height: 36px;
-	width: 100%;
-	background: #666;
-}
-
-.basewrap {
-	width: 960px;
-	margin: 0 auto;
-	position: relative;
-}
-
-.content {
-	font-size: 12px; border : 1px solid #a8a8a8;
-	background: #FFF;
-	border: solid 1px #CCC;
-	padding: 20px;
-	box-shadow: 1px 3px 10px #CFCFCF;
-	border-radius: 5px;
-	border: 1px solid #a8a8a8;
-}
-
-#side {
-	width: 210px;
-	padding-right:10px;
-	float: left;
-}
-
-#content {
-	width: 740px;
-	float: right;
-}
-
-#footer {
-	border-top: 1ps solid #333;
-}
-
-form,table,input,label,div,span {
-	font: inherit;
-}
-
-
-fieldset{
-	border:1px solid #CCC;
-	border-radius:5px;
-	padding:5px 5px 10px 5px;
-	margin-bottom:5px;
-}
-
-fieldset legend{
-	display:block;
-	padding:0 10px;
-	font-weight: bold;
-	color:#666;
-}

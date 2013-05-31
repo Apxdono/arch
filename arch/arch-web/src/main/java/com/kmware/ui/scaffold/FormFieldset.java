@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kmware.ui.annotations.UIFieldset;
+import com.kmware.ui.constant.StringConstants;
 
 public class FormFieldset implements Serializable {
 	private static final long serialVersionUID = -145124544924397790L;
@@ -14,8 +15,8 @@ public class FormFieldset implements Serializable {
 	private List<FormField> fields;
 	
 	public FormFieldset() {
-		id = UIFieldset.COMMON_ID;
-		name = UIFieldset.COMMON_LABEL;
+		id = StringConstants.FIELDSET_DEFAULT_ID;
+		name = StringConstants.FIELDSET_DEFAULT_NAME;
 		fields = new ArrayList<FormField>(0);
 	}
 	

@@ -87,7 +87,7 @@ public class FormProcessor {
 				// Chech if we have a ui field
 				if (method.isAnnotationPresent(UIField.class)) {
 					UIField annot = method.getAnnotation(UIField.class);
-					if (annot.showInForm()) {
+					if (Boolean.parseBoolean(annot.showInForm())) {
 
 						String fieldName = WordUtils.uncapitalize(name
 								.substring(3));
@@ -98,9 +98,9 @@ public class FormProcessor {
 								fieldName);
 						field.setReturnType(method.getReturnType());
 						field.setLabel(new String(annot.label()));
-						field.setRequired(annot.required());
+						field.setRequired(Boolean.parseBoolean(annot.required()));
 						field.setMaxLength(annot.maxLength());
-						field.setPlaceholder(annot.placeholder());
+						field.setPlaceholder(Boolean.parseBoolean(annot.placeholder()));
 						bufferSets.get(annot.fieldset()).getFields().add(field);
 					}
 				}// endif UIField

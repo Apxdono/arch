@@ -104,53 +104,53 @@ public class ReflectionBean {
 		return null;
 	}*/
 	
-	public List<FormRenderField> getFormFields(Object o){
-		
-		List<FormRenderField> fields = new ArrayList<FormRenderField>();
-		
-		List<Method> methods = new ArrayList<Method>();
-		
-		if(o!=null){
-			for (Method method : methods) {
-				if(method.getName().startsWith("get")){
-					//We dont need get class for now
-					if(method.getName().equals("getClass")){
-						continue;
-					}
-					FormRenderField field = new FormRenderField();
-					
-					//Chech if we have a ui field
-					if(method.isAnnotationPresent(UIField.class)){
-						UIField annot = method.getAnnotation(UIField.class);
-						field.setLabel(annot.label());
-						field.setRequired(annot.required());
-						try {
-							field.setValue(method.invoke(o, new Object[]{}));
-						} catch (IllegalArgumentException e) {
-							e.printStackTrace();
-						} catch (IllegalAccessException e) {
-							e.printStackTrace();
-						} catch (InvocationTargetException e) {
-							e.printStackTrace();
-						}
-						
-						
-					}//endif UIField
-					
-					if(method.isAnnotationPresent(Column.class)){
-						Column col = method.getAnnotation(Column.class);
-						field.setMaxLength(col.length());
-					}
-					
-				}//endif get method
-			}//end foreach
-			
-			
-		}
-		
-		
-		
-		return fields;		
-	}
+//	public List<FormRenderField> getFormFields(Object o){
+//		
+//		List<FormRenderField> fields = new ArrayList<FormRenderField>();
+//		
+//		List<Method> methods = new ArrayList<Method>();
+//		
+//		if(o!=null){
+//			for (Method method : methods) {
+//				if(method.getName().startsWith("get")){
+//					//We dont need get class for now
+//					if(method.getName().equals("getClass")){
+//						continue;
+//					}
+//					FormRenderField field = new FormRenderField();
+//					
+//					//Chech if we have a ui field
+//					if(method.isAnnotationPresent(UIField.class)){
+//						UIField annot = method.getAnnotation(UIField.class);
+//						field.setLabel(annot.label());
+//						field.setRequired(annot.required());
+//						try {
+//							field.setValue(method.invoke(o, new Object[]{}));
+//						} catch (IllegalArgumentException e) {
+//							e.printStackTrace();
+//						} catch (IllegalAccessException e) {
+//							e.printStackTrace();
+//						} catch (InvocationTargetException e) {
+//							e.printStackTrace();
+//						}
+//						
+//						
+//					}//endif UIField
+//					
+//					if(method.isAnnotationPresent(Column.class)){
+//						Column col = method.getAnnotation(Column.class);
+//						field.setMaxLength(col.length());
+//					}
+//					
+//				}//endif get method
+//			}//end foreach
+//			
+//			
+//		}
+//		
+//		
+//		
+//		return fields;		
+//	}
 
 }

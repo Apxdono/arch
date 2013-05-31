@@ -49,7 +49,6 @@ public abstract class DBObject implements Serializable, Cloneable {
 	}
 	
 	@TrackChanges
-	@UIField(label="displayName",required=true)
 	@Column(name="display_name",length=255,nullable=false)
 	public String getDisplayName() {
 		return displayName;
@@ -61,21 +60,18 @@ public abstract class DBObject implements Serializable, Cloneable {
 	}
 
 	@TrackChanges
-	@UIField(label="deleted")
 	@Column(name="deleted",nullable=false)
 	public Boolean getDeleted() {
 		return deleted;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@UIField(label="dateCreated",showInForm=false)
 	@Column(name="date_created")
 	public Date getDateCreated() {
 		return dateCreated.getTime();
 	}
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@UIField(label="dateModified",showInForm=false)
 	@Column(name="date_modified")
 	public Date getDateModified() {
 		return dateModified.getTime();
