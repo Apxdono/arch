@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.Column;
 
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +18,8 @@ import com.kmware.dao.CommonDAO;
 import com.kmware.dao.DAOMessage;
 import com.kmware.model.DBObject;
 import com.kmware.signleton.FieldCache;
+import com.kmware.web.bbean.request.Navigation;
+import com.kmware.web.converter.DefaultConverter;
 
 public abstract class CommonCRUDBean<T extends DBObject> implements Serializable {
 	private static final long serialVersionUID = -917866548312200765L;
@@ -25,8 +28,11 @@ public abstract class CommonCRUDBean<T extends DBObject> implements Serializable
 	protected CommonDAO dao;
 	@EJB
 	protected FieldCache cache;
+	@Inject
+	protected Navigation nav;
 	
 	protected T entity;
+	protected DefaultConverter defaultConverter;
 	private boolean debug = false;
 	private Logger logger = Logger.getLogger(getClass().getName());
 		
@@ -39,6 +45,7 @@ public abstract class CommonCRUDBean<T extends DBObject> implements Serializable
 	@PostConstruct
 	public void init() {
 		log("Dao injected : " + (dao != null));
+		defaultConverter = new DefaultConverter();
 		initEntity();
 	}
 	
@@ -47,7 +54,7 @@ public abstract class CommonCRUDBean<T extends DBObject> implements Serializable
 	public void save() {
 		DAOMessage msg = dao.presist(entity);
 		if (msg != DAOMessage.OK) {
-			redirectTo("list.jsf");
+			redirectTo(nav.toList());
 		}
 	}
 
@@ -67,6 +74,10 @@ public abstract class CommonCRUDBean<T extends DBObject> implements Serializable
 		this.entity = entity;
 	}
 
+	public DefaultConverter getDefaultConverter() {
+		return defaultConverter;
+	}
+	
 	//Used for redirects. Best I came up with to fight the form-resubmission problem
 	//and empty data submissions. Looks like a valid PRG concept so should be okay 
 	protected void redirectTo(String url){

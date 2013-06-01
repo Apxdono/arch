@@ -12,7 +12,7 @@
 		<ui:define name="content">
 			<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
 				<!-- cst:formFieldsets fieldsets="#{subtopicBean.formFieldsets}"/-->		
-				<h:panelGrid id="commongrid" columns="3">
+				<!-- h:panelGrid id="commongrid" columns="3">
 					<h:outputLabel value="displayName" id="displayNamelabel" for="displayNameinput"/>
 					<h:inputText id="displayNameinput" maxlength="255" label="displayName" required="true" value="#{subtopicBean.entity.displayName}" />
 					<h:message id="displayNamemsg" for="displayNameinput"/>
@@ -23,7 +23,9 @@
 				<h:commandButton id="save" value="Save">
 					<f:ajax event="click"  listener="#{subtopicBean.saveSubtopic}" execute="@all" render="crudform" />
 					<f:ajax ></f:ajax>
-				</h:commandButton>
+				</h:commandButton-->
+				Subtopic
+				
 			</h:form>
 		</ui:define>
 	</ui:composition>

@@ -119,37 +119,3 @@ table {
 
 
 /*RESET END*/
-html,body {
-	height: 100%;
-	
-}
-
-#wrap {
-	position: relative;
-	min-height: 100%;
-    /*background:#646464;*/
-}
-
-
-* html #main { height: 100%; } /* for IE */
-
-
-	padding-bottom: 150px;
-} /* must be same height as the footer */
-#footer {
-	position: relative;
-	margin-top: -60px; /* negative value of footer height */
-	height: 60px;
-	clear: both;
-}
-
-/*Opera Fix*/
-body:before {
-	content: "";
-	height: 100%;
-	float: left;
-	width: 0;
-	margin-top: -32767px;
-	/
-}
-

@@ -10,7 +10,7 @@
 </h:head>
 <h:body>
 	<f:facet name="last">
-		<h:outputStylesheet name="screen.css" library="css" />
+		<h:outputStylesheet name="reset.css" library="css" />
 		<h:outputStylesheet name="default.css" library="css" />
 		<h:outputStylesheet name="tables.css" library="css" />
 		<h:outputStylesheet name="forms.css" library="css" />
@@ -18,40 +18,32 @@
 			target="head" />
 	</f:facet>
 
-	<script type="text/javascript">
-		
-	</script>
-	<div id="wrap">
-		<div id="header">
-			<div id="header-top">
-				<div class="basewrap">Header</div>
-			</div>
-			<div id="header-bot">
-				<div class="basewrap">
-					Navigation<br />ALALA
-				</div>
-			</div>
+	<div id="outer">
+		<div id="left">
+			<h:form id="sideForm">
+				<ul class="side-menu">
+					<li><h:commandButton value="Countries" immediate="true"
+							action="#{navigation.redirectToCountries}" styleClass="button">
+						</h:commandButton></li>
+					<li><h:commandButton value="Cities" immediate="true"
+							action="#{navigation.redirectToCities}" styleClass="button">
+						</h:commandButton></li>
+					<li><h:commandButton value="Companies" immediate="true"
+							action="#{navigation.redirectToCompanies}" styleClass="button">
+						</h:commandButton></li>
+				</ul>
+			</h:form>
 		</div>
-		<div id="main">
-			<div class="basewrap">
-				<div id="outer">
-					<div id="inner">
-						<div id="side">
-							<ul id="sidemenu">
-								<li><a href="#">Countries</a></li>
-								<li><a href="#">Cities</a></li>
-								<li><a href="#">Companies</a></li>
-							</ul>
-						</div>
-						<div id="content">HI</div>
-					</div>
-				</div>
-			</div>
+		<div id="centrecontent">
+				<ui:insert name="content" />
 		</div>
+		<div id="clearfooter"></div>
+		<!-- to clear footer -->
 	</div>
-
-	<div id="footer">
-		<div class="basewrap">Footer</div>
+	<!-- end outer div -->
+	<div id="footer">Copyright MATHAFAKA!</div>
+	<div id="header">
+		<div id="logo">HornZ &#26412; ThornZ</div>
 	</div>
 
 </h:body>
