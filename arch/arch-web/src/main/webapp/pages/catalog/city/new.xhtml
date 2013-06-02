@@ -21,7 +21,7 @@
 					<h:outputText value="" />
 					
 					<h:outputLabel id="countrylabel" value="Country: *" for="countryvalue"/>
-					<h:selectOneMenu id="countryvalue" value="#{cityCRUD.entity.country}" converter="#{cityCRUD.defaultConverter}" required="true">
+					<h:selectOneMenu id="countryvalue" value="#{cityCRUD.entity.country}" converter="#{cityCRUD.defaultConverter}" required="true" label="Country">
 						<f:selectItem itemLabel="Choose country..." itemValue=""/>
 						<f:selectItems value="#{cityCRUD.countries}" var="item" itemLabel="#{item.displayName}" itemValue="#{item}"/>
 					</h:selectOneMenu>

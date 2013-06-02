@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:o="http://openfaces.org/"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:cst="http://kmware.com/ui">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:o="http://openfaces.org/"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cst="http://kmware.com/ui">
 
-	<ui:composition template="/WEB-INF/templates/default.xhtml">
-		<ui:define name="content">
-			<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
-				Country!
-			</h:form>
-		</ui:define>
-	</ui:composition>
+<ui:composition template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
+			<div id="content">
+
+				<o:dataTable id="table" value="#{countryCRUD.model}" var="item">
+					<o:column header="Name" headerClass="gradient column-header" style="display:table-cell;">
+						<h:outputText value="#{item.displayName}" />
+					</o:column>
+					<o:column header="Flag" headerClass="gradient column-header" style="display:table-cell;">
+						<h:outputText value="#{item.flag}" />
+					</o:column>
+				</o:dataTable>
+
+			</div>
+			<div id="actions" style="padding:0px 20px;">
+				<h:commandButton action="#{navigation.toNew}" value="New record" styleClass="button"/>
+			
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>

@@ -16,7 +16,6 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 import com.kmware.jpa.annotations.TrackChanges;
-import com.kmware.ui.annotations.UIField;
 
 
 @MappedSuperclass

@@ -1,6 +1,5 @@
 package com.kmware.web.bbean.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -20,11 +19,6 @@ public class CityCrudBean extends CommonCRUDBean<City> {
 	@Override
 	protected void initEntity() {
 		entity = new City();
-	}
-
-	public List<City> getList(){
-		String query = "SELECT c FROM City c ORDER BY c.displayName ASC";
-		return dao.getResultList(query, null, 0, 0, City.class);
 	}
 	
 	public List<Country> getCountries(){

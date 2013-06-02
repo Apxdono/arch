@@ -2,17 +2,13 @@ package com.kmware.web.bbean;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.lang.reflect.Method;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.persistence.Column;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
 
 import com.kmware.dao.CommonDAO;
 import com.kmware.dao.DAOMessage;
@@ -53,7 +49,7 @@ public abstract class CommonCRUDBean<T extends DBObject> implements Serializable
 
 	public void save() {
 		DAOMessage msg = dao.presist(entity);
-		if (msg != DAOMessage.OK) {
+		if (msg == DAOMessage.OK) {
 			redirectTo(nav.toList());
 		}
 	}
@@ -61,9 +57,15 @@ public abstract class CommonCRUDBean<T extends DBObject> implements Serializable
 	public void update() {
 		Object[] result = dao.update(entity);
 		DAOMessage msg = (DAOMessage) result[0];
-		if (msg != DAOMessage.OK) {
+		if (msg == DAOMessage.OK) {
 			redirectTo("view.jsf");
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> getModel(){
+		String query = "SELECT o FROM "+entity.getClass().getName()+" o ORDER BY o.displayName ASC";
+		return (List<T>) dao.getResultList(query, null, 0, 0, entity.getClass());
 	}
 
 	public T getEntity() {

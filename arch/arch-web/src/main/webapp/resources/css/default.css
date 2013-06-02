@@ -217,7 +217,12 @@ body:before {
 		endColorstr='#2f3337', GradientType=0 ); /* IE6-8 */
 }
 
-.column-header{
+.gradient.column-header{
 	padding:10px 20px;
 	color:#FFF;
+	border:1px solid #777!important;
+}
+
+.table-cell{
+	padding:10px 5px;
 }

@@ -12,11 +12,11 @@
 		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
 			<div id="content">
 
-				<o:dataTable id="table" value="#{cityCRUD.list}" var="item">
-					<o:column header="Name" headerClass="gradient column-header" style="display:table-cell;">
-						<h:outputText value="#{item.displayName}" />
+				<o:dataTable id="table" value="#{cityCRUD.model}" var="item">
+					<o:column header="Name" headerClass="gradient column-header" style="display:table-cell;" styleClass="table-cell">
+						<o:commandLink value="#{item.displayName}" />
 					</o:column>
-					<o:column header="Zip-code" headerClass="gradient column-header" style="display:table-cell;">
+					<o:column header="Zip-code" headerClass="gradient column-header" style="display:table-cell;" styleClass="table-cell">
 						<h:outputText value="#{item.zipCode}" />
 					</o:column>
 				</o:dataTable>

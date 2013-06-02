@@ -11,21 +11,19 @@
 	<ui:define name="content">
 		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
 			<div id="content">
-
-				<o:dataTable id="table" value="#{companyCRUD.model}" var="item">
-					<o:column header="Name" headerClass="gradient column-header" style="display:table-cell;" styleClass="table-cell">
-						<h:outputText value="#{item.displayName}" />
-					</o:column>
-					<o:column header="Date created" headerClass="gradient column-header" style="display:table-cell;" styleClass="table-cell">
-						<h:outputText value="#{item.dateCreated}" >
-							<f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
-						</h:outputText>
-					</o:column>
-				</o:dataTable>
-
+				<h:panelGrid columns="3">
+					<h:outputLabel id="displayNamelabel" value="Name: *" for="displayNamevalue"/>
+					<h:inputText id="displayNamevalue" value="#{countryCRUD.entity.displayName}" required="true" label="Name" />
+					<h:message id="displayNamemsg" for="displayNamevalue"/>
+					
+				</h:panelGrid>
+	
 			</div>
 			<div id="actions" style="padding:0px 20px;">
-				<h:commandButton action="#{navigation.toNew}" value="New record" styleClass="button"/>
+				<h:commandButton value="Save record" styleClass="button">
+					<f:ajax event="click"  listener="#{countryCRUD.save}" execute="@all" render="crudform" />
+				</h:commandButton>
+			
 			</div>
 		</h:form>
 	</ui:define>
