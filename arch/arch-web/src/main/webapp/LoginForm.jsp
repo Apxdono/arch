@@ -8,8 +8,8 @@
 <body>
 	<div id="section-content1"
 		style="width: 550px; border: solid 1px #CCC; padding: 20px; box-shadow: 1px 3px 10px #CFCFCF; border-radius: 5px; top: 200px; margin-left: auto; margin-right: auto; background-color: white; position: relative;">
-		<form method="post" action="j_security_check" class="def-form"
-			style="margin-left: auto; margin-right: auto;">
+		<form method="post" action="/arch/LoginServlet" class="def-form"
+			style="margin-left: auto; margin-right: auto;" onsubmit="window.location.href='LoginServlet'">
 			<fieldset style="border: none">
 				<table width="200" border="0">
 					<tr>
