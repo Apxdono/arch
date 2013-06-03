@@ -2,6 +2,7 @@ package com.kmware.web.bbean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -10,45 +11,52 @@ import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import com.kmware.dao.CommonDAO;
 import com.kmware.dao.DAOMessage;
+import com.kmware.dao.ICommonDAO;
 import com.kmware.model.DBObject;
 import com.kmware.signleton.FieldCache;
 import com.kmware.web.bbean.request.Navigation;
+import com.kmware.web.bbean.util.DataTableModel;
+import com.kmware.web.bbean.util.TableState;
 import com.kmware.web.converter.DefaultConverter;
 
-public abstract class CommonCRUDBean<T extends DBObject> implements Serializable {
+public abstract class CommonCRUDBean<T extends DBObject> implements
+		Serializable {
 	private static final long serialVersionUID = -917866548312200765L;
 
 	@EJB
-	protected CommonDAO dao;
+	protected ICommonDAO dao;
 	@EJB
 	protected FieldCache cache;
 	@Inject
 	protected Navigation nav;
-	
+
 	protected T entity;
+	protected Class<T> entityClass;
 	protected DefaultConverter defaultConverter;
 	private boolean debug = false;
 	private Logger logger = Logger.getLogger(getClass().getName());
-		
-	public void log(String message){
-		if(debug){
+	protected TableState tableState;
+	protected DataTableModel<T> model;
+
+	public void log(String message) {
+		if (debug) {
 			logger.info(message);
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
-	public void init() {
+	public void init() throws InstantiationException, IllegalAccessException {
 		log("Dao injected : " + (dao != null));
 		defaultConverter = new DefaultConverter();
-		initEntity();
+		entityClass = ((Class<T>) ((ParameterizedType) this.getClass()
+				.getGenericSuperclass()).getActualTypeArguments()[0]);
+		entity = entityClass.newInstance();
 	}
-	
-	protected abstract void initEntity();
 
 	public void save() {
-		DAOMessage msg = dao.presist(entity);
+		DAOMessage msg = dao.create(entity);
 		if (msg == DAOMessage.OK) {
 			redirectTo(nav.toList());
 		}
@@ -61,11 +69,28 @@ public abstract class CommonCRUDBean<T extends DBObject> implements Serializable
 			redirectTo("view.jsf");
 		}
 	}
-	
-	@SuppressWarnings("unchecked")
-	public List<T> getModel(){
-		String query = "SELECT o FROM "+entity.getClass().getName()+" o ORDER BY o.displayName ASC";
-		return (List<T>) dao.getResultList(query, null, 0, 0, entity.getClass());
+
+	protected DataTableModel<T> getModel() {
+		if (model == null) {
+			model = new DataTableModel<T>(dao, entityClass);
+
+		}
+		return model;
+	}
+
+	public List<T> getItems() {
+		return getModel().getResultList();
+	}
+
+	public int getItemsTotalCount() {
+		return getModel().getResultCount();
+	}
+
+	public TableState getTableState() {
+		if (tableState == null) {
+			tableState = new TableState();
+		}
+		return tableState;
 	}
 
 	public T getEntity() {
@@ -76,17 +101,25 @@ public abstract class CommonCRUDBean<T extends DBObject> implements Serializable
 		this.entity = entity;
 	}
 
+	/**
+	 * Get the default entity converter for DBObject.class (uses id and displayName fields)
+	 * @return instance of a converter
+	 */
 	public DefaultConverter getDefaultConverter() {
 		return defaultConverter;
 	}
-	
-	//Used for redirects. Best I came up with to fight the form-resubmission problem
-	//and empty data submissions. Looks like a valid PRG concept so should be okay 
-	protected void redirectTo(String url){
+
+	/**
+	 * Perform redirect 
+	 * @param url - where to go
+	 */
+	protected void redirectTo(String url) {
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(url);
 		} catch (IOException e) {
-			this.log("SOMETHING HAPPENED AND I CAN'T GO TO:"+url+" . I'M REALLY SORRY :(");
+			this.log("SOMETHING HAPPENED AND I CAN'T GO TO:" + url
+					+ " . I'M REALLY SORRY :(");
 			this.log("See the stacktrace below maybe it will be helpful");
 			e.printStackTrace();
 		}

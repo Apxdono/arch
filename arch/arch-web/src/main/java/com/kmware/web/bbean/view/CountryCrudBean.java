@@ -11,8 +11,4 @@ import com.kmware.web.bbean.CommonCRUDBean;
 public class CountryCrudBean extends CommonCRUDBean<Country> {
 	private static final long serialVersionUID = -9022037695214476125L;
 	
-	@Override
-	protected void initEntity() {
-		entity = new Country();
-	}
 }

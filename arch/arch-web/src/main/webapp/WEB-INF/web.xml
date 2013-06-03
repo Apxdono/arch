@@ -11,7 +11,7 @@
 		<description>Explicitly set the encoding of the page to UTF-8</description>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>com.kmware.web.filter.CharacterEncodingFilter</filter-class>
-		
+
 		<init-param>
 			<param-name>requestEncoding</param-name>
 			<param-value>UTF-8</param-value>
@@ -95,4 +95,49 @@
 		<param-name>org.openfaces.validation.useDefaultServerPresentation</param-name>
 		<param-value>false</param-value>
 	</context-param>
+
+	<context-param>
+		<param-name>org.openfaces.ajaxMessageHTML</param-name>
+		<param-value><![CDATA[
+		    <div>
+		      <img src="/arch/javax.faces.resource/loading.gif.jsf?ln=gfx" width="70" height="70"/>
+		    </div>
+  ]]></param-value>
+	</context-param>
+
+
+
+	<security-constraint>
+		<display-name>arch</display-name>
+		<web-resource-collection>
+			<web-resource-name>ETT</web-resource-name>
+			<description></description>
+			<url-pattern>/pages/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>PUT</http-method>
+			<http-method>DELETE</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<description></description>
+			<role-name>archUser</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<security-role>
+		<description></description>
+		<role-name>archUser</role-name>
+	</security-role>
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/LoginForm.jsp</form-login-page>
+			<form-error-page>/LoginForm.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+
+
 </web-app>

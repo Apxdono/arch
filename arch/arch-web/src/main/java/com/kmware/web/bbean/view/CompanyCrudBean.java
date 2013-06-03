@@ -10,9 +10,4 @@ import com.kmware.web.bbean.CommonCRUDBean;
 @ManagedBean(name="companyCRUD")
 public class CompanyCrudBean extends CommonCRUDBean<Company> {
 	private static final long serialVersionUID = -9022037695214476125L;
-	
-	@Override
-	protected void initEntity() {
-		entity = new Company();
-	}
 }

@@ -217,12 +217,14 @@ body:before {
 		endColorstr='#2f3337', GradientType=0 ); /* IE6-8 */
 }
 
-.gradient.column-header{
-	padding:10px 20px;
-	color:#FFF;
-	border:1px solid #777!important;
-}
-
-.table-cell{
-	padding:10px 5px;
+.overlay{
+	background:#000;
+	opacity:.60;
+	filter:alpha(opacity=60);
+	z-index:99998;
+	position:fixed;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
 }

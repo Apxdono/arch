@@ -11,7 +11,8 @@
 <h:body>
 	<f:facet name="last">
 		<h:outputStylesheet name="reset.css" library="css" />
-		<h:outputStylesheet name="default.css" library="css" />
+		<h:outputStylesheet name="default.css" library="openfaces" />
+		<h:outputStylesheet name="main.css" library="css" />
 		<h:outputStylesheet name="tables.css" library="css" />
 		<h:outputStylesheet name="forms.css" library="css" />
 		<h:outputScript name="jquery-1.9.1.min.js" library="javascript"
@@ -28,7 +29,7 @@
 					<li><h:commandButton value="Cities" immediate="true"
 							action="#{navigation.redirectToCities}" styleClass="button">
 						</h:commandButton></li>
-					<li><h:commandButton value="Companies" immediate="true"
+					<li><h:commandButton value="Companies" immediate="true" 
 							action="#{navigation.redirectToCompanies}" styleClass="button">
 						</h:commandButton></li>
 				</ul>

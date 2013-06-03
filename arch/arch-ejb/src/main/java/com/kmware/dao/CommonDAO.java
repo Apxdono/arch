@@ -1,60 +1,322 @@
 package com.kmware.dao;
 
-import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
-import org.apache.commons.lang3.StringUtils;
+import com.kmware.model.DBObject;
+
 
 @Stateless
-public class CommonDAO implements Serializable {
+@Local(ICommonDAO.class)
+public class CommonDAO implements ICommonDAO{
 	private static final long serialVersionUID = 3862223808458181474L;
+
 	
 	@PersistenceContext
-	private EntityManager em;
-	
-	public <E> E find(Class<E> klazz, Object id){
-		return em.find(klazz, id);
-	}
-	
-	public DAOMessage presist(Object o){
-		em.persist(o);	
+	protected EntityManager em;
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#create(E)
+	 */
+	@Override
+	public <E> DAOMessage create(E e) {
+		em.persist(e);
 		return DAOMessage.OK;
 	}
 	
-	public Object[] update(Object o){
-		em.merge(o);
-		return new Object[]{DAOMessage.OK,o};
-	}
-	
-	public <T> List<T> getResultList(String ejbQL,Map<String, Object> params,int offset,int maxResults,Class<T> klazz){
-		if(StringUtils.isBlank(ejbQL)){
-			ejbQL = "FROM "+klazz.getSimpleName();
-		}
-		Query q = em.createQuery(ejbQL, klazz);
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#read(java.lang.Object, java.lang.Class)
+	 */
+	@Override
+	public <E> E read(Object id, Class<E> klass) {
 		
-		if(params!=null && params.size() > 0){
-			for (Map.Entry<String, Object> param : params.entrySet()) {
-				q.setParameter(param.getKey(), param.getValue());
+		return em.find(klass, id);
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#read(java.lang.Object, java.lang.Class, boolean)
+	 */
+	@Override
+	public <E> E readWithCollections(Object id, Class<E> klass) {
+		System.out.println(this.toString());	
+		E e = em.find(klass, id);
+		if (e instanceof DBObject){
+
+		}
+		return e;
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#update(E)
+	 */
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public <E> Object[] update(E e) {
+		e = em.merge(e);
+		return new Object[]{DAOMessage.OK,e};
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#delete(E, java.lang.Class)
+	 */
+	@Override
+	public <E> void delete(E t, Class<E> klass) {
+
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getCount(java.lang.Class)
+	 */
+	@Override
+	public int getCount(Class<?> klass) {
+
+		return getQuery(null, null, 0, 0, null, klass).getFirstResult();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getCount(java.lang.String, java.util.Map, java.lang.Class)
+	 */
+	@Override
+	public int getCount(String query, Map<String, Object> params, Class<?> klass) {
+
+		return ((Long)getQuery(query, params, 0, 0, null, klass).getSingleResult()).intValue();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getCount(java.lang.String, java.util.Map, int, int, java.lang.Class)
+	 */
+	@Override
+	public int getCount(String query, Map<String, Object> params, int first,
+			int limit, Class<?> klass) {
+
+		return getQuery(query, params, first, limit, null, klass)
+				.getFirstResult();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getCount(java.lang.String, java.util.Map, int, int, java.lang.String, java.lang.Class)
+	 */
+	@Override
+	public int getCount(String query, Map<String, Object> params, int first,
+			int limit, String orderBy, Class<?> klass) {
+
+		return getQuery(query, params, 0, 0, null, klass).getFirstResult();
+	}
+
+	@Override
+	public TypedQuery<?> getNamedQuery(String queryName,
+			Map<String, Object> params, Class<?> klass) {
+		return this.getNamedQuery(queryName, params, 0, 0, klass);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getNamedQuery(java.lang.String, java.util.Map, java.lang.Class)
+	 */
+	@Override
+	public TypedQuery<?> getNamedQuery(String queryName,
+			Map<String, Object> params, int first, int limit, Class<?> klass) {
+		TypedQuery<?> query = em.createNamedQuery(queryName, klass);
+		if (params != null) {
+			
+			for (String paramName : params.keySet()) {
+					query.setParameter(paramName, params.get(paramName));
 			}
 		}
 		
-		if(offset > 0){
-			q.setFirstResult(offset);
+		if (first > 0) {
+			query.setFirstResult(first);
 		}
-		
-		if(maxResults > 0){
-			q.setMaxResults(maxResults);
+		if (limit > 0) {
+			query.setMaxResults(limit);
 		}
-		
-		return q.getResultList();
+		return query;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> List<E> getNQResultList(String queryName, Class<E> klass) {
+		return (List<E>) getNamedQuery(queryName, null, klass).getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> List<E> getNQResultList(String queryName, Map<String, Object> params,
+			Class<E> klass) {
+		return (List<E>) getNamedQuery(queryName, params, klass).getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> List<E> getNQResultList(String queryName, Map<String, Object> params,
+			int first, int limit, Class<E> klass) {
+
+		return (List<E>) getNamedQuery(queryName, params, first, limit, klass)
+				.getResultList();
+	}
+	
+
+	@Override
+	public <E> List<E> getNQResultList(String queryName,
+			Map<String, Object> params, int first, int limit,
+			String orderByField, String order, Class<E> klass) {
+//		if(orderByField != null && !"".equals(orderByField)){
+//			String queryString = em.createNamedQuery(queryName).unwrap(org.hibernate.Query.class).getQueryString();
+//			return this.getResultList(queryString, params, first, limit, orderByField+" "+order, klass);
+//		} else {
+			return this.getNQResultList(queryName, params, first, limit, klass);
+//		}
+	}
+	
+	@Override
+	public Long getNQCount(String queryName) {
+		return (Long) getNamedQuery(queryName, null, Long.class).getSingleResult();
+	}
+
+	@Override
+	public Long getNQCount(String queryName, Map<String, Object> params) {
+		return (Long) getNamedQuery(queryName, params, Long.class).getSingleResult();
+	}
+
+	@Override
+	public Long getNQCount(String queryName, Map<String, Object> params,
+			int first, int limit) {
+
+		return  (Long) getNamedQuery(queryName, params, first, limit, Long.class)
+				.getSingleResult();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getQuery(java.lang.String, java.util.Map, java.lang.Class)
+	 */
+	@Override
+	public <E> Query getQuery(String query, Map<String, Object> params,
+			Class<E> klass) {
+		return getQuery(query, params, 0, 0, null, klass);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getQuery(java.lang.String, java.util.Map, int, int, java.lang.String, java.lang.Class)
+	 */
+	@Override
+	public <E> Query getQuery(String query, Map<String, Object> params,
+			int first, int limit, String orderBy, Class<E> klass) {
+		if (query == null) {
+			query = "FROM " + klass.getName();
+		}
+		if (orderBy != null) {
+			query += " ORDER BY " + orderBy;
+		}
+		Query q = em.createQuery(query);
+		if (params != null) {
+			for (String paramName : params.keySet()) {
+				q.setParameter(paramName, params.get(paramName));
+			}
+		}
+		if (first > 0) {
+			q.setFirstResult(first);
+		}
+		if (limit > 0) {
+			q.setMaxResults(limit);
+		}
+		return q;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getResultList(java.lang.Class)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> List<E> getResultList(Class<E> klass) {
+		return getQuery(null, null, 0, 0, null, klass).getResultList();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getResultList(java.lang.String, java.util.Map, java.lang.Class)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> List<E> getResultList(String query, Map<String, Object> params,
+			Class<E> klass) {
+
+		return getQuery(query, params, 0, 0, null, klass).getResultList();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getResultList(java.lang.String, java.util.Map, int, int, java.lang.Class)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> List<E> getResultList(String query, Map<String, Object> params,
+			int first, int limit, Class<E> klass) {
+
+		return getQuery(query, params, first, limit, null, klass)
+				.getResultList();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getResultList(java.lang.String, java.util.Map, int, int, java.lang.String, java.lang.Class)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> List<E> getResultList(String query, Map<String, Object> params,
+			int first, int limit, String orderBy, Class<E> klass) {
+
+		return getQuery(query, params, first, limit, orderBy, klass)
+				.getResultList();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getSingleResult(java.lang.String, java.lang.Class)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> E getSingleResult(String query, Class<E> klass) {
+		return (E) getQuery(query, null, 0, 0, null, klass).getSingleResult();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getSingleResult(java.lang.String, java.util.Map, java.lang.Class)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> E getSingleResult(String query, Map<String, Object> params,
+			Class<E> klass) {
+
+		return (E) getQuery(query, params, 0, 0, null, klass).getSingleResult();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getSingleResult(java.lang.String, java.util.Map, int, int, java.lang.Class)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> E getSingleResult(String query, Map<String, Object> params,
+			int first, int limit, Class<E> klass) {
+
+		return (E) getQuery(query, params, first, limit, null, klass)
+				.getSingleResult();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.kmware.dao.IBasicDao#getSingleResult(java.lang.String, java.util.Map, int, int, java.lang.String, java.lang.Class)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> E getSingleResult(String query, Map<String, Object> params,
+			int first, int limit, String orderBy, Class<E> klass) {
+
+		return (E) getQuery(query, params, first, limit, orderBy, klass)
+				.getSingleResult();
+	}
 }

@@ -1,23 +1,46 @@
-table, table tr,table tr td { 
-	/* border:1px solid black; */
-	
+.km-column {
+	padding: 10px 5px;
 }
 
-.column{
-	vertical-align: middle;
-	padding:5px 5px;
-	height:16px;
+thead tr .km-column {
+	padding: 10px 0;
+	color: #FFF;
+	border: 1px solid #777 !important;
+	text-align: center;
+	background: #42484d; /* Old browsers */
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	background:
+		url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzQyNDg0ZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyZjMzMzciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top, #42484d 0%, #2f3337 100%);
+	/* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #42484d),
+		color-stop(100%, #2f3337) ); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #42484d 0%, #2f3337 100%);
+	/* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #42484d 0%, #2f3337 100%);
+	/* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #42484d 0%, #2f3337 100%);
+	/* IE10+ */
+	background: linear-gradient(to bottom, #42484d 0%, #2f3337 100%);
+	/* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#42484d',
+		endColorstr='#2f3337', GradientType=0 ); /* IE6-8 */
 }
 
-.column.label {
-	width: 100px; 
+.km-paginator {
+	display: block;
+	float: right;
+	margin: 5px 10px 5px 0px;
 }
 
-.column.input {
-	width: 200px;
+.km-paginator input.o_table_paginator_field{
+	width:80px;
 }
 
-.formtable{
-	margin:0 22px;
-	width:640px;
+.km-paginator-pageSize {
+	width:50px;	
+	margin:5px 0px 5px 0px;
+	display: block;
+	height: 23px;
+	float: right;
 }

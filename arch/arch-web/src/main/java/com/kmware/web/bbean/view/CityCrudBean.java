@@ -15,11 +15,7 @@ public class CityCrudBean extends CommonCRUDBean<City> {
 	private static final long serialVersionUID = -9022037695214476125L;
 	
 	private List<Country> countries;
-	
-	@Override
-	protected void initEntity() {
-		entity = new City();
-	}
+
 	
 	public List<Country> getCountries(){
 		if(countries == null){
