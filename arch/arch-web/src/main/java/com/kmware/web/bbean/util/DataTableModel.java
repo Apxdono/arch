@@ -24,26 +24,31 @@ public class DataTableModel<T extends DBObject> implements Serializable {
 	protected Class<T> entityClass;
 	protected FilterCriterionProcessor processor;
 	protected Map<String, Object> parameters;
-
-	public DataTableModel(ICommonDAO dao, Class<T> klazz) {
+	protected TableState state;
+	
+	public DataTableModel(ICommonDAO dao,TableState state,Class<T> klazz) {
 		this.dao = dao;
 		this.entityClass = klazz;
 		this.parameters = new HashMap<String, Object>();
-		processor = new PGCriterionProcessor(this.parameters);
-
+		this.processor = new PGCriterionProcessor(this.parameters);
+		this.state = state;
 	}
 
 	public List<T> getResultList() {
 		Integer first = Faces.var("pageStart", Integer.class);
 		Integer limit = Faces.var("pageSize", Integer.class);
-
+		
 		StringBuilder query = getQuery();
 		query.append(buildPredicates());
-		System.out.println("First:" + first + " Limit:" + limit);
 		List<T> result = dao.getResultList(query.toString(), this.parameters,
 				first != null ? first : 0, limit != null ? limit : 0,
 				getOrderBy(), this.entityClass);
 		this.parameters.clear();
+		int newOffset = first/state.getPageSize();
+		if(state.getPageIndex()!= newOffset){
+			state.setPageIndex(newOffset);
+		}
+		System.out.println(state);
 		return result;
 	}
 
@@ -91,7 +96,12 @@ public class DataTableModel<T extends DBObject> implements Serializable {
 			if (expr != null && !"".equals(expr)) {
 				List<String> exprs = RegexpUtils.getElExpressions(expr);
 				if (exprs.size() > 0) {
-					column = exprs.get(0).substring(5, exprs.get(0).length() )+(sortAscending ? " ASC" : " DESC");
+					String buf = exprs.get(0).substring(5, exprs.get(0).length());
+					column = VAR_NAME_IN_PAGE +"."+buf+(sortAscending ? " ASC" : " DESC");
+					if(state.getSortColumnId()!=null && !state.getSortColumnId().equals(buf)){
+						state.setSortColumnId(buf);
+						state.setSortAscending(sortAscending);
+					}
 					return column;
 				}
 			}

@@ -12,15 +12,21 @@
 		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
 			<div id="content">
 
-				<o:ajaxSettings onsuccess="console.log('success', arguments)" onsessionexpired="console.log('session expired',arguments)" onerror="console.log('error',arguments)">
+				<o:ajaxSettings onsuccess="console.log('success', arguments)"
+					onsessionexpired="console.log('session expired',arguments)"
+					onerror="console.log('error',arguments);app.sessionExpired(event.data)">
 					<f:facet name="sessionExpiration">
-						<o:defaultSessionExpiration />
+						<o:defaultSessionExpiration>
+
+						</o:defaultSessionExpiration>
 					</f:facet>
 				</o:ajaxSettings>
 
-				<o:dataTable useAjax="true" sortColumnId="displayName" id="table"
-					value="#{cityCRUD.items}" var="item" style="width:100%"
-					customDataProviding="true" pageCount="#{cityCRUD.itemsTotalCount}"
+				<o:dataTable id="table" style="width:100%" useAjax="true"
+					value="#{cityCRUD.items}" var="item" customDataProviding="true"
+					sortColumnId="#{cityCRUD.tableState.sortColumnId}"
+					sortAscending="#{cityCRUD.tableState.sortAscending}"
+					pageCount="#{cityCRUD.itemsTotalCount}"
 					totalRowCount="#{cityCRUD.itemsTotalCount}"
 					pageSize="#{cityCRUD.tableState.pageSize}"
 					pageIndex="#{cityCRUD.tableState.pageIndex}"
@@ -30,7 +36,8 @@
 						sortingExpression="#{item.displayName}">
 						<o:commandLink value="#{item.displayName}" />
 					</o:column>
-					<o:column id="zipCode" header="Zip-code" styleClass="km-column">
+					<o:column id="zipCode" header="Zip-code" styleClass="km-column"
+						sortingExpression="#{item.zipCode}">
 						<h:outputText value="#{item.zipCode}" />
 					</o:column>
 

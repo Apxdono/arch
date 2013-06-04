@@ -16,6 +16,7 @@ import com.kmware.dao.ICommonDAO;
 import com.kmware.model.DBObject;
 import com.kmware.signleton.FieldCache;
 import com.kmware.web.bbean.request.Navigation;
+import com.kmware.web.bbean.session.SessionBean;
 import com.kmware.web.bbean.util.DataTableModel;
 import com.kmware.web.bbean.util.TableState;
 import com.kmware.web.converter.DefaultConverter;
@@ -30,6 +31,8 @@ public abstract class CommonCRUDBean<T extends DBObject> implements
 	protected FieldCache cache;
 	@Inject
 	protected Navigation nav;
+	@Inject
+	protected SessionBean sessionBean;
 
 	protected T entity;
 	protected Class<T> entityClass;
@@ -72,14 +75,17 @@ public abstract class CommonCRUDBean<T extends DBObject> implements
 
 	protected DataTableModel<T> getModel() {
 		if (model == null) {
-			model = new DataTableModel<T>(dao, entityClass);
+			model = new DataTableModel<T>(dao, getTableState(), entityClass);
 
 		}
 		return model;
 	}
 
 	public List<T> getItems() {
-		return getModel().getResultList();
+		List<T> res = getModel().getResultList();
+		sessionBean.put(FacesContext.getCurrentInstance().getViewRoot()
+				.getViewId(), tableState);
+		return res;
 	}
 
 	public int getItemsTotalCount() {
@@ -88,7 +94,8 @@ public abstract class CommonCRUDBean<T extends DBObject> implements
 
 	public TableState getTableState() {
 		if (tableState == null) {
-			tableState = new TableState();
+			tableState = new TableState(sessionBean.getTableState(FacesContext
+					.getCurrentInstance().getViewRoot().getViewId()));
 		}
 		return tableState;
 	}
@@ -102,7 +109,9 @@ public abstract class CommonCRUDBean<T extends DBObject> implements
 	}
 
 	/**
-	 * Get the default entity converter for DBObject.class (uses id and displayName fields)
+	 * Get the default entity converter for DBObject.class (uses id and
+	 * displayName fields)
+	 * 
 	 * @return instance of a converter
 	 */
 	public DefaultConverter getDefaultConverter() {
@@ -110,8 +119,10 @@ public abstract class CommonCRUDBean<T extends DBObject> implements
 	}
 
 	/**
-	 * Perform redirect 
-	 * @param url - where to go
+	 * Perform redirect
+	 * 
+	 * @param url
+	 *            - where to go
 	 */
 	protected void redirectTo(String url) {
 		try {
