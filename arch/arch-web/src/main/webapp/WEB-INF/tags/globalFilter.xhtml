@@ -1,0 +1,15 @@
+<!DOCTYPE html >
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:o="http://openfaces.org/">
+	
+	<span>
+		<o:inputTextFilter id="#{id}" autoFilterDelay="-1" for="#{not empty for ? for: '' }" expression="#{expression}" promptText="Global search" style="width:300px;"/>
+		
+	</span>
+
+</ui:composition>

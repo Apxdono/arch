@@ -41,7 +41,7 @@ public interface ICommonDAO extends Serializable {
 	 *      true if one needs to initialize the collections of the entity. false
 	 *      otherwise
 	 */
-	public abstract <E> E readWithCollections(Object id, Class<E> klass);
+	public abstract <E> E readWithLazyObjects(Object id, Class<E> klass);
 
 	/**
 	 * Update entity in database

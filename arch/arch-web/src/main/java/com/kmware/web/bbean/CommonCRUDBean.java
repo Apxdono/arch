@@ -11,6 +11,8 @@ import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.kmware.dao.DAOMessage;
 import com.kmware.dao.ICommonDAO;
 import com.kmware.model.DBObject;
@@ -24,7 +26,7 @@ import com.kmware.web.converter.DefaultConverter;
 public abstract class CommonCRUDBean<T extends DBObject> implements
 		Serializable {
 	private static final long serialVersionUID = -917866548312200765L;
-
+	
 	@EJB
 	protected ICommonDAO dao;
 	@EJB
@@ -51,11 +53,15 @@ public abstract class CommonCRUDBean<T extends DBObject> implements
 	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() throws InstantiationException, IllegalAccessException {
-		log("Dao injected : " + (dao != null));
 		defaultConverter = new DefaultConverter();
 		entityClass = ((Class<T>) ((ParameterizedType) this.getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0]);
-		entity = entityClass.newInstance();
+		String id = getParameter(Navigation.ID_PARAM);
+		if(StringUtils.isNotBlank(id)){
+			entity = dao.readWithLazyObjects(id, entityClass);
+		} else {
+			entity = entityClass.newInstance();
+		}
 	}
 
 	public void save() {
@@ -69,7 +75,7 @@ public abstract class CommonCRUDBean<T extends DBObject> implements
 		Object[] result = dao.update(entity);
 		DAOMessage msg = (DAOMessage) result[0];
 		if (msg == DAOMessage.OK) {
-			redirectTo("view.jsf");
+			redirectTo(nav.toView(entity.getId()));
 		}
 	}
 
@@ -136,4 +142,8 @@ public abstract class CommonCRUDBean<T extends DBObject> implements
 		}
 	}
 
+	
+	protected String getParameter(String key){
+		return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(key);
+	}
 }

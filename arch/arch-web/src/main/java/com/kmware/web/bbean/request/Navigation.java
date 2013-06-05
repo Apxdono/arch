@@ -17,7 +17,7 @@ public class Navigation {
 	public static final String COMPANY="/pages/catalog/company/";
 	public static final String CITY="/pages/catalog/city/";
 	public static final String FACES_REDIRECT_PARAM="faces-redirect=true";
-	
+	public static final String ID_PARAM = "id";
 	public String redirectToCountries(){
 		String res = COUNTRY+LIST+"?"+FACES_REDIRECT_PARAM;
 		return res;
@@ -39,13 +39,13 @@ public class Navigation {
 		return res;
 	}
 
-	public String toView(){
-		String res = VIEW+"?"+FACES_REDIRECT_PARAM;
+	public String toView(String id){
+		String res = VIEW+"?"+ID_PARAM+"="+id+"&"+FACES_REDIRECT_PARAM;
 		return res;
 	}
 	
-	public String toEdit(){
-		String res = EDIT+"?"+FACES_REDIRECT_PARAM;
+	public String toEdit(String id){
+		String res = EDIT+"?"+ID_PARAM+"="+id+"&"+FACES_REDIRECT_PARAM;
 		return res;
 	}
 	

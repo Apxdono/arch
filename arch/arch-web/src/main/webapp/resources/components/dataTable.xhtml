@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://openfaces.org/">
+<head>
+<title>Not present in rendered output</title>
+</head>
+<body>
+	<composite:interface>
+		<composite:attribute name="bean" />
+	</composite:interface>
+	<composite:implementation>
+		<o:dataTable id="table" styleClass="km-table" useAjax="true"
+			value="#{cc.attrs.bean.items}" var="item" customDataProviding="true"
+			pageCount="#{cc.attrs.bean.itemsTotalCount}"
+			totalRowCount="#{cc.attrs.bean.itemsTotalCount}"
+			pageSize="#{cc.attrs.bean.tableState.pageSize}"
+			pageIndex="#{cc.attrs.bean.tableState.pageIndex}"
+			paginationKeyboardSupport="true">
+			<composite:insertChildren />
+			<f:facet name="below">
+				<h:panelGroup layout="block" style="height:30px;">
+					<h:selectOneMenu id="pageSizeTop"
+						value="#{cc.attrs.bean.tableState.pageSize}"
+						styleClass="km-paginator-pageSize">
+						<f:selectItem itemLabel="5" itemValue="5" />
+						<f:selectItem itemLabel="10" itemValue="10" />
+						<f:selectItem itemLabel="25" itemValue="25" />
+						<f:selectItem itemLabel="50" itemValue="50" />
+						<o:ajax event="change" execute="@this" render="table" />
+					</h:selectOneMenu>
+					<o:dataTablePaginator id="paginatorTop" styleClass="km-paginator"
+						showPageCount="true" showIfOnePage="true" />
+				</h:panelGroup>
+			</f:facet>
+		</o:dataTable>
+	</composite:implementation>
+</body>
+</html>

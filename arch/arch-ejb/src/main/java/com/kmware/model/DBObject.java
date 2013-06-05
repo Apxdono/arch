@@ -150,4 +150,8 @@ public abstract class DBObject implements Serializable, Cloneable {
 		dateModified.setTimeInMillis((new Date()).getTime());
 	}
 	
+	public void loadLazyObjects(){
+		
+	}
+	
 }

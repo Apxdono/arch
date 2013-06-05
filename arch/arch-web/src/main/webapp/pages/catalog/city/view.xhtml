@@ -20,14 +20,15 @@
 
 					
 					<h:outputLabel id="countrylabel" value="Country: *" for="countryvalue"/>
-					<h:inputText id="zipCodevalue" value="#{cityCRUD.entity.country.displayName}"  readonly="true"/>
+					<h:inputText id="countryvalue" value="#{cityCRUD.entity.country.displayName}"  readonly="true"/>
 				</h:panelGrid>
 	
 			</div>
-			<div id="actions" style="padding:0px 20px;">
-				<h:commandButton value="Edit" styleClass="button" action="#{navigation.toEdit}">
+			<div id="actions" class="km-actions">
+				<h:commandButton value="Edit" styleClass="button" immediate="true" action="#{navigation.toEdit(cityCRUD.entity.id)}">
 				</h:commandButton>
-			
+				<h:commandButton value="List" styleClass="button" immediate="true" action="#{navigation.toList}">
+				</h:commandButton>
 			</div>
 		</h:form>
 	</ui:define>

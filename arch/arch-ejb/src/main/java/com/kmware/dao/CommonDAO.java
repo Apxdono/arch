@@ -47,11 +47,10 @@ public class CommonDAO implements ICommonDAO{
 	 * @see com.kmware.dao.IBasicDao#read(java.lang.Object, java.lang.Class, boolean)
 	 */
 	@Override
-	public <E> E readWithCollections(Object id, Class<E> klass) {
-		System.out.println(this.toString());	
+	public <E> E readWithLazyObjects(Object id, Class<E> klass) {
 		E e = em.find(klass, id);
 		if (e instanceof DBObject){
-
+			((DBObject)e).loadLazyObjects();
 		}
 		return e;
 	}

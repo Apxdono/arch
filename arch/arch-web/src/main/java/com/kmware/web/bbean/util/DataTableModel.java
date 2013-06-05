@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 import org.openfaces.component.filter.CompositeFilterCriterion;
@@ -16,6 +20,7 @@ import org.openfaces.util.Faces;
 
 import com.kmware.dao.ICommonDAO;
 import com.kmware.model.DBObject;
+import com.sun.faces.component.visit.FullVisitContext;
 
 public class DataTableModel<T extends DBObject> implements Serializable {
 	private static final long serialVersionUID = -5923542701195738827L;
@@ -48,7 +53,6 @@ public class DataTableModel<T extends DBObject> implements Serializable {
 		if(state.getPageIndex()!= newOffset){
 			state.setPageIndex(newOffset);
 		}
-		System.out.println(state);
 		return result;
 	}
 
@@ -107,6 +111,23 @@ public class DataTableModel<T extends DBObject> implements Serializable {
 			}
 		}
 		return null;
+	}
+	
+	public UIComponent findComponent2(final String id){
+	    FacesContext context = FacesContext.getCurrentInstance(); 
+	    UIViewRoot root = context.getViewRoot();
+	    final UIComponent[] found = new UIComponent[1];
+	    root.visitTree(new FullVisitContext(context), new VisitCallback() {     
+	        @Override
+	        public VisitResult visit(VisitContext context, UIComponent component) {
+	            if(component.getId().equals(id)){
+	                found[0] = component;
+	                return VisitResult.COMPLETE;
+	            }
+	            return VisitResult.ACCEPT;              
+	        }
+	    });
+	    return found[0];
 	}
 
 	private UIComponent findComponent(UIComponent root, String id) {

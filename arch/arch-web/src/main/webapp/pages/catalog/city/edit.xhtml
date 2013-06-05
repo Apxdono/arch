@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:o="http://openfaces.org/"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cst="http://kmware.com/ui">
+
+<ui:composition template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
+			<div id="content">
+				<h:panelGrid columns="3">
+					<h:outputLabel id="displayNamelabel" value="Name: *" for="displayNamevalue"/>
+					<h:inputText id="displayNamevalue" value="#{cityCRUD.entity.displayName}" required="true" label="Name" />
+					<h:message id="displayNamemsg" for="displayNamevalue"/>
+					
+					<h:outputLabel id="zipCodelabel" value="Zip-code: " for="zipCodevalue"/>
+					<h:inputText id="zipCodevalue" value="#{cityCRUD.entity.zipCode}"  />
+					<h:outputText value="" />
+					
+					<h:outputLabel id="countrylabel" value="Country: *" for="countryvalue"/>
+					<h:selectOneMenu id="countryvalue" value="#{cityCRUD.entity.country}" converter="#{cityCRUD.defaultConverter}" required="true" label="Country">
+						<f:selectItem itemLabel="Choose country..." itemValue=""/>
+						<f:selectItems value="#{cityCRUD.countries}" var="item" itemLabel="#{item.displayName}" itemValue="#{item}"/>
+					</h:selectOneMenu>
+					<h:message id="countrymsg" for="countryvalue"/>
+				</h:panelGrid>
+	
+			</div>
+			<div id="actions" class="km-actions">
+				<h:commandButton value="Save" styleClass="button">
+					<f:ajax event="click"  listener="#{cityCRUD.update}" execute="@all" render="crudform" />
+				</h:commandButton>
+				<h:commandButton value="Cancel" styleClass="button" action="#{navigation.toView(cityCRUD.entity.id)}">
+					<o:confirmation alignToInvoker="true"/>
+				</h:commandButton>
+			
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

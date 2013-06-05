@@ -25,7 +25,7 @@ public class City extends DBObject {
 		return zipCode;
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="country_id",nullable=false)
 	public Country getCountry() {
 		return country;
@@ -38,4 +38,13 @@ public class City extends DBObject {
 	public void setCountry(Country country) {
 		this.country = country;
 	}
+	
+	@Override
+	public void loadLazyObjects() {
+		super.loadLazyObjects();
+		if(country!=null){
+			country.getId();
+		}
+	}
+	
 }

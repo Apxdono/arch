@@ -13,4 +13,29 @@
             <renderer-type>com.kmware.FormFieldsetRenderer</renderer-type>
         </component>
     </tag>
+     <tag>
+        <tag-name>dataTable</tag-name>
+        <source>tags/dataTable.xhtml</source>
+        <attribute>
+        	<display-name>bean</display-name>
+        	<name>bean</name>
+        </attribute>
+    </tag>
+    <tag>
+        <tag-name>globalFilter</tag-name>
+        <source>tags/globalFilter.xhtml</source>
+        <attribute>
+        	<display-name>for</display-name>
+        	<name>for</name>
+        	<type>java.lang.String</type>
+        </attribute>
+        <attribute>
+        	<display-name>id</display-name>
+        	<name>id</name>
+        </attribute>
+        <attribute>
+        	<display-name>expression</display-name>
+        	<name>expression</name>
+        </attribute>
+    </tag>
 </facelet-taglib>
