@@ -1,16 +1,9 @@
-package com.kmware.web.bbean.util;
+package com.kmware.datatable;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
 
 import org.openfaces.component.filter.CompositeFilterCriterion;
 import org.openfaces.component.filter.FilterCriterion;
@@ -20,7 +13,8 @@ import org.openfaces.util.Faces;
 
 import com.kmware.dao.ICommonDAO;
 import com.kmware.model.DBObject;
-import com.sun.faces.component.visit.FullVisitContext;
+import com.kmware.util.FacesUtils;
+import com.kmware.util.RegexpUtils;
 
 public class DataTableModel<T extends DBObject> implements Serializable {
 	private static final long serialVersionUID = -5923542701195738827L;
@@ -94,7 +88,7 @@ public class DataTableModel<T extends DBObject> implements Serializable {
 
 		if (sortColumn != null && !"".equals(sortColumn)) {
 
-			Column col = (Column) findComponent(sortColumn);
+			Column col = (Column) FacesUtils.findComponent(sortColumn);
 			String expr = col.getSortingExpression().getExpressionString();
 			String column = "";
 			if (expr != null && !"".equals(expr)) {
@@ -113,51 +107,5 @@ public class DataTableModel<T extends DBObject> implements Serializable {
 		return null;
 	}
 	
-	public UIComponent findComponent2(final String id){
-	    FacesContext context = FacesContext.getCurrentInstance(); 
-	    UIViewRoot root = context.getViewRoot();
-	    final UIComponent[] found = new UIComponent[1];
-	    root.visitTree(new FullVisitContext(context), new VisitCallback() {     
-	        @Override
-	        public VisitResult visit(VisitContext context, UIComponent component) {
-	            if(component.getId().equals(id)){
-	                found[0] = component;
-	                return VisitResult.COMPLETE;
-	            }
-	            return VisitResult.ACCEPT;              
-	        }
-	    });
-	    return found[0];
-	}
-
-	private UIComponent findComponent(UIComponent root, String id) {
-
-		UIComponent result = null;
-		if (root.getId().equals(id))
-			return root;
-
-		for (UIComponent child : root.getChildren()) {
-			if (child.getId().equals(id)) {
-				result = child;
-				break;
-			}
-			result = findComponent(child, id);
-			if (result != null)
-				break;
-		}
-		return result;
-	}
-
-	public UIComponent findComponent(String id) {
-
-		UIComponent result = null;
-		UIComponent root = FacesContext.getCurrentInstance().getViewRoot();
-		if (root != null) {
-			result = findComponent(root, id);
-		}
-		return result;
-
-	}
-
 
 }

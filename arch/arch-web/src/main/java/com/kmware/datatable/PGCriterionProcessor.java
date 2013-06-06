@@ -1,4 +1,4 @@
-package com.kmware.web.bbean.util;
+package com.kmware.datatable;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -10,6 +10,8 @@ import org.openfaces.component.filter.ExpressionFilterCriterion;
 import org.openfaces.component.filter.FilterCondition;
 import org.openfaces.component.filter.FilterCriterionProcessor;
 import org.openfaces.component.filter.OrFilterCriterion;
+
+import com.kmware.util.RegexpUtils;
 
 
 public class PGCriterionProcessor extends FilterCriterionProcessor implements

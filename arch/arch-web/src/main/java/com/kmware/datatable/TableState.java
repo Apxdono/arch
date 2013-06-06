@@ -1,4 +1,4 @@
-package com.kmware.web.bbean.util;
+package com.kmware.datatable;
 
 import java.io.Serializable;
 

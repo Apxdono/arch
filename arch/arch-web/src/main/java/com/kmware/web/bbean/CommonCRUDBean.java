@@ -15,12 +15,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.kmware.dao.DAOMessage;
 import com.kmware.dao.ICommonDAO;
+import com.kmware.datatable.DataTableModel;
+import com.kmware.datatable.TableState;
 import com.kmware.model.DBObject;
 import com.kmware.signleton.FieldCache;
 import com.kmware.web.bbean.request.Navigation;
 import com.kmware.web.bbean.session.SessionBean;
-import com.kmware.web.bbean.util.DataTableModel;
-import com.kmware.web.bbean.util.TableState;
 import com.kmware.web.converter.DefaultConverter;
 
 public abstract class CommonCRUDBean<T extends DBObject> implements

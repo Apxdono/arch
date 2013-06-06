@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-import com.kmware.web.bbean.util.TableState;
+import com.kmware.datatable.TableState;
 
 @Named
 @SessionScoped

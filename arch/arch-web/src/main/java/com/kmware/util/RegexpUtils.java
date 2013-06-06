@@ -1,4 +1,4 @@
-package com.kmware.web.bbean.util;
+package com.kmware.util;
 
 import java.util.ArrayList;
 import java.util.List;
