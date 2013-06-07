@@ -46,3 +46,26 @@ app.initClearButton = function(button){
 		}
 	});
 };
+
+
+app.showPopupMenu = function(element,popupId){
+	var popup = O$(popupId);
+	var x = element.offsetLeft;
+	var y = element.offsetTop + element.offsetHeight+3;
+	popup.showAtXY(x, y);
+};
+
+app.prepareExport = function(table,type,exportAll){
+	O$('exportTableId').value = table;
+	O$('exportType').value = type;
+	O$('exportAll').value = exportAll;
+};
+
+app.createLink = function(data){
+	var div = $('#actions');
+	 var exportLink = document.createElement('a');
+	 exportLink.setAttribute('href', 'data:text/csv;base64,' + window.btoa(data));
+	 exportLink.appendChild(document.createTextNode('report'));
+	 div.append(exportLink);
+};
+

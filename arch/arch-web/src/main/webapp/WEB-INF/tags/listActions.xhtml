@@ -1,0 +1,36 @@
+<!DOCTYPE html >
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:o="http://openfaces.org/">
+	<c:set var="targetTable" value="#{not empty targetTable?targetTable:'table'}"/>
+	<div id="actions" class="km-actions">
+				<h:commandButton action="#{navigation.toNew}" value="New record"
+					immediate="true" styleClass="button" />
+				<h:commandButton value="Export" styleClass="button" immediate="true"
+					id="export"
+					onclick="app.showPopupMenu(this,'exportPopup');event.preventDefault();return false;" />
+				
+				<h:inputHidden id="exportTableId" value="#{tableExporter.tableId}" />
+				<h:inputHidden id="exportType" value="#{tableExporter.type}" />
+				<h:inputHidden id="exportAll" value="#{tableExporter.all}" />
+
+				<o:popupMenu id="exportPopup" standalone="true">
+					<o:menuItem iconUrl="#{resource['gfx:csv.png']}">
+						<h:commandLink value="CSV all" actionListener="#{tableExporter.exportDataListener}" onclick="app.prepareExport('#{targetTable}','csv',true);"/>
+					</o:menuItem>
+					<o:menuItem iconUrl="#{resource['gfx:csv.png']}">
+						<h:commandLink value="CSV page" actionListener="#{tableExporter.exportDataListener}" onclick="app.prepareExport('#{targetTable}','csv',false);"/>
+					</o:menuItem>
+					<o:menuItem iconUrl="#{resource['gfx:xls.png']}">
+						<h:commandLink value="XLS all" actionListener="#{tableExporter.exportDataListener}" onclick="app.prepareExport('#{targetTable}','xls',true);"/>
+					</o:menuItem>
+					<o:menuItem iconUrl="#{resource['gfx:xls.png']}" >
+						<h:commandLink value="XLS page" actionListener="#{tableExporter.exportDataListener}" onclick="app.prepareExport('#{targetTable}','xls',false);"/>
+					</o:menuItem>
+				</o:popupMenu>
+			</div>
+</ui:composition>
