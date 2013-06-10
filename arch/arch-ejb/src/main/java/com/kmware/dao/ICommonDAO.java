@@ -115,6 +115,8 @@ public interface ICommonDAO extends Serializable {
 	public abstract TypedQuery<?> getNamedQuery(String queryName,
 			Map<String, Object> params, int first, int limit, Class<?> klass);
 
+	public abstract <E> List<E> getFromArray(Class<E> klazz, List<String> array,boolean inverse);
+	
 	public abstract <E> List<E> getNQResultList(String queryName, Class<E> klass);
 
 	public abstract <E> List<E> getNQResultList(String queryName,

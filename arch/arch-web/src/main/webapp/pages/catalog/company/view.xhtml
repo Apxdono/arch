@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:o="http://openfaces.org/"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:o="http://openfaces.org/"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -13,18 +14,21 @@
 			<div id="content">
 				<h:panelGrid columns="2">
 					<h:outputLabel id="displayNamelabel" value="Name: " for="displayNamevalue"/>
-					<h:inputText id="displayNamevalue" value="#{cityCRUD.entity.displayName}" readonly="true"/>
+					<h:inputText id="displayNamevalue" value="#{companyCRUD.entity.displayName}" readonly="true" />
 					
-					<h:outputLabel id="zipCodelabel" value="Zip-code: " for="zipCodevalue"/>
-					<h:inputText id="zipCodevalue" value="#{cityCRUD.entity.zipCode}"  readonly="true"/>
-							
-					<h:outputLabel id="countrylabel" value="Country: *" for="countryvalue"/>
-					<h:inputText id="countryvalue" value="#{cityCRUD.entity.country.displayName}"  readonly="true"/>
+					<h:outputLabel id="citieslabel" value="Cities: " />
+					<h:panelGroup>
+					<ul>
+						<ui:repeat var="i" value="#{companyCRUD.entity.cities}">
+							<li> #{i.displayName} </li>
+						</ui:repeat>
+					</ul>
+					</h:panelGroup>
 				</h:panelGrid>
 	
 			</div>
 			<div id="actions" class="km-actions">
-				<h:commandButton value="Edit" styleClass="button" immediate="true" action="#{navigation.toEdit(cityCRUD.entity.id)}">
+				<h:commandButton value="Edit" styleClass="button" immediate="true" action="#{navigation.toEdit(companyCRUD.entity.id)}">
 				</h:commandButton>
 				<h:commandButton value="List" styleClass="button" immediate="true" action="#{navigation.toList}">
 				</h:commandButton>

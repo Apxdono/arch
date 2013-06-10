@@ -13,18 +13,16 @@
 			<div id="content">
 				<h:panelGrid columns="2">
 					<h:outputLabel id="displayNamelabel" value="Name: " for="displayNamevalue"/>
-					<h:inputText id="displayNamevalue" value="#{cityCRUD.entity.displayName}" readonly="true"/>
-					
-					<h:outputLabel id="zipCodelabel" value="Zip-code: " for="zipCodevalue"/>
-					<h:inputText id="zipCodevalue" value="#{cityCRUD.entity.zipCode}"  readonly="true"/>
-							
-					<h:outputLabel id="countrylabel" value="Country: *" for="countryvalue"/>
-					<h:inputText id="countryvalue" value="#{cityCRUD.entity.country.displayName}"  readonly="true"/>
+					<h:inputText id="displayNamevalue" value="#{countryCRUD.entity.displayName}" readonly="true"/>
+			
+					<h:outputLabel id="deletedlabel" value="Deleted: " for="deletedvalue"/>
+					<h:inputText id="deletedvalue" value="#{countryCRUD.entity.deleted?'Yes':'No'}" readonly="true"/>
+			
 				</h:panelGrid>
 	
 			</div>
 			<div id="actions" class="km-actions">
-				<h:commandButton value="Edit" styleClass="button" immediate="true" action="#{navigation.toEdit(cityCRUD.entity.id)}">
+				<h:commandButton value="Edit" styleClass="button" immediate="true" action="#{navigation.toEdit(countryCRUD.entity.id)}">
 				</h:commandButton>
 				<h:commandButton value="List" styleClass="button" immediate="true" action="#{navigation.toList}">
 				</h:commandButton>

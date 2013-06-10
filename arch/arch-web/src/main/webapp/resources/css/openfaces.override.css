@@ -89,6 +89,10 @@
 	/* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#42484d',
 		endColorstr='#2f3337', GradientType=0 )\9;  /*IE6-8 */
+	padding: 10px 0;
+	color:#FFF;
+	text-align:center;
+	font-weight:bold;
 }
 
 .o_table_footer_section {
@@ -1551,11 +1555,23 @@
 /* TwoListSelection */
 .o_twoListSelection {
   width: 500px;
+  vertical-align: middle;
+}
+
+.o_twoListSelection td{
+	vertical-align: middle;
 }
 
 .o_tls_caption {
   font-weight: bold;
-  padding: 4px 4px 2px;
+  color:#FFF;
+  padding: 10px 0;
+}
+
+table.o_tls_caption tr td{
+	font-weight: bold;
+  color:#FFF;
+  padding: 10px 0;
 }
 
 .o_tls_list {

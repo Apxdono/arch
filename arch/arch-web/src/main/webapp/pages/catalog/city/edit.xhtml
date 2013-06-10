@@ -20,6 +20,10 @@
 					<h:inputText id="zipCodevalue" value="#{cityCRUD.entity.zipCode}"  />
 					<h:outputText value="" />
 					
+					<h:outputLabel id="deletedLabel" value="Deleted: " for="deletedvalue"/>
+					<h:selectBooleanCheckbox id="deletedvalue" value="#{cityCRUD.entity.deleted}" />
+					<h:outputText value="" />
+					
 					<h:outputLabel id="countrylabel" value="Country: *" for="countryvalue"/>
 					<h:selectOneMenu id="countryvalue" value="#{cityCRUD.entity.country}" converter="#{cityCRUD.defaultConverter}" required="true" label="Country">
 						<f:selectItem itemLabel="Choose country..." itemValue=""/>

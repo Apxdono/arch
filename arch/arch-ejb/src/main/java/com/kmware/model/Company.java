@@ -36,5 +36,13 @@ public class Company extends DBObject {
 	public void setCities(List<City> cities) {
 		this.cities = cities;
 	}
+	
+	@Override
+	public void loadLazyObjects() {
+		super.loadLazyObjects();
+		if(cities!=null){
+			cities.size();
+		}
+	}
 
 }

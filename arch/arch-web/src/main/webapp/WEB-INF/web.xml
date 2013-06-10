@@ -21,13 +21,13 @@
 			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
-		
-	
+
+
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 
 	<!-- Activate the JSF 2.0 servlet -->
 	<!-- The JSF servlet declaration and mapping are not required for GlassFish 

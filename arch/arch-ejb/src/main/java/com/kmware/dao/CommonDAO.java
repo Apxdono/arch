@@ -1,5 +1,6 @@
 package com.kmware.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -202,6 +203,19 @@ public class CommonDAO implements ICommonDAO{
 	public <E> Query getQuery(String query, Map<String, Object> params,
 			Class<E> klass) {
 		return getQuery(query, params, 0, 0, null, klass);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <E> List<E> getFromArray(Class<E> klazz, List<String> array,boolean inverse){
+		String query = "SELECT DISTINCT(o) FROM "+klazz.getName()+" o WHERE o.id";
+		if(inverse){
+			query += " NOT IN (:array) ";
+		} else {
+			query += " IN (:array) ";
+		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("array", array);		
+		return getQuery(query, params, klazz).getResultList();
 	}
 
 	/* (non-Javadoc)

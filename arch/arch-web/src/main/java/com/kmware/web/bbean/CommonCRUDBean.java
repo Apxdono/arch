@@ -63,8 +63,18 @@ public abstract class CommonCRUDBean<T extends DBObject> implements
 			entity = entityClass.newInstance();
 		}
 	}
+	
+	protected void preSave(){
+		
+	}
+	
+	protected void preUpdate(){
+		
+	}
+	
 
 	public void save() {
+		preSave();
 		DAOMessage msg = dao.create(entity);
 		if (msg == DAOMessage.OK) {
 			redirectTo(nav.toList());
@@ -72,6 +82,7 @@ public abstract class CommonCRUDBean<T extends DBObject> implements
 	}
 
 	public void update() {
+		preUpdate();
 		Object[] result = dao.update(entity);
 		DAOMessage msg = (DAOMessage) result[0];
 		if (msg == DAOMessage.OK) {

@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:o="http://openfaces.org/">
 <h:head>
 	<title>arch</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -17,10 +18,20 @@
 		<h:outputStylesheet name="forms.css" library="css" />
 		<h:outputScript name="jquery-1.9.1.min.js" library="javascript"
 			target="head" />
-		<h:outputScript name="app.js" library="javascript"
-			target="head" />
+		<h:outputScript name="app.js" library="javascript" target="head" />
+
 	</f:facet>
 
+	<o:ajaxSettings onsuccess="console.log('success', arguments)"
+		onsessionexpired="console.log('session expired',arguments)"
+		onerror="console.log('error',arguments);app.sessionExpired(event.data)">
+		<f:facet name="sessionExpiration">
+			<o:defaultSessionExpiration>
+
+			</o:defaultSessionExpiration>
+		</f:facet>
+	</o:ajaxSettings>
+	
 	<div id="outer">
 		<div id="left">
 			<h:form id="sideForm">
@@ -31,14 +42,14 @@
 					<li><h:commandButton value="Cities" immediate="true"
 							action="#{navigation.redirectToCities}" styleClass="button">
 						</h:commandButton></li>
-					<li><h:commandButton value="Companies" immediate="true" 
+					<li><h:commandButton value="Companies" immediate="true"
 							action="#{navigation.redirectToCompanies}" styleClass="button">
 						</h:commandButton></li>
 				</ul>
 			</h:form>
 		</div>
 		<div id="centrecontent">
-				<ui:insert name="content" />
+			<ui:insert name="content" />
 		</div>
 		<div id="clearfooter"></div>
 		<!-- to clear footer -->
