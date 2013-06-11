@@ -91,6 +91,8 @@ public interface ICommonDAO extends Serializable {
 			Map<String, Object> params, int first, int limit, String orderBy,
 			Class<E> klass);
 
+    public abstract <E> List<E> getEntitiesByDisplayName(String match,int offset,int max, Class<E> klazz);
+
 	public abstract int getCount(Class<?> klass);
 
 	public abstract int getCount(String query, Map<String, Object> params,

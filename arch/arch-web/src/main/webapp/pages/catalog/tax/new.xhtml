@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cst="http://kmware.com/ui"
+	xmlns:o="http://openfaces.org/">
+
+<ui:composition template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
+			<div id="content">
+				<h:panelGrid columns="3">
+					<h:outputLabel id="displayNamelabel" value="Name: *" for="displayNamevalue"/>
+					<h:inputText id="displayNamevalue" value="#{taxCRUD.entity.displayName}" required="true" label="Name" maxlength="255"/>
+					<h:message id="displayNamemsg" for="displayNamevalue"/>
+					
+					<h:outputLabel id="deletedLabel" value="Deleted: " for="deletedvalue"/>
+					<h:selectBooleanCheckbox id="deletedvalue" value="#{taxCRUD.entity.deleted}" />
+					<h:outputText value="" />
+
+                    <h:outputLabel id="countryLabel" value="Country: *" for="countryValue"/>
+                    <o:selectOneMenu id="countryValue" value="#{taxCRUD.entity.country}" converter="countryConverter" suggestionMode="substring" var="country" readonly="false" >
+                            <f:selectItems value="#{taxCRUD.countryAutocomplete()}" />
+                            <o:column>
+                                <h:outputText value="#{country.displayName}"/>
+
+                            </o:column>
+
+                    </o:selectOneMenu>
+                    <h:outputText value="" />
+
+
+				</h:panelGrid>
+			</div>
+			<div id="actions" style="padding:0px 20px;" class="km-actions">
+				<h:commandButton value="Save record" styleClass="button">
+					<f:ajax event="click"  listener="#{taxCRUD.save}" execute="@all" render="crudform" />
+				</h:commandButton>
+				<h:commandButton action="#{navigation.toList}" value="Cancel" immediate="true" styleClass="button"/>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

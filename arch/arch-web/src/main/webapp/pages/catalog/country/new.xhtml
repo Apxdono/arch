@@ -24,7 +24,7 @@
 			</div>
 			<div id="actions" style="padding:0px 20px;" class="km-actions">
 				<h:commandButton value="Save record" styleClass="button">
-					<f:ajax event="click"  listener="#{countryCrud.save}" execute="@all" render="crudform" />
+					<f:ajax event="click"  listener="#{countryCRUD.save}" execute="@all" render="crudform" />
 				</h:commandButton>
 				<h:commandButton action="#{navigation.toList}" value="Cancel" immediate="true" styleClass="button"/>
 			</div>

@@ -16,7 +16,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<ejb.api.version>3.0</ejb.api.version>
 		<cdi.api.version>1.0-SP4</cdi.api.version>
 		<jpa.api.version>1.0.1.Final</jpa.api.version>
 		<jsf.api.version>2.1</jsf.api.version>
@@ -62,11 +61,12 @@
 			</dependency>
 
 
-			<dependency>
-				<groupId>javax.ejb</groupId>
-				<artifactId>ejb-api</artifactId>
-				<version>${ejb.api.version}</version>
-			</dependency>
+           <dependency>
+               <groupId>javax</groupId>
+               <artifactId>javaee-api</artifactId>
+               <version>6.0</version>
+               <scope>provided</scope>
+           </dependency>
 
 			<dependency>
 				<groupId>javax.enterprise</groupId>
@@ -86,6 +86,7 @@
 				<groupId>javax.faces</groupId>
 				<artifactId>jsf-api</artifactId>
 				<version>${jsf.api.version}</version>
+                <scope>provided</scope>
 			</dependency>
 
 			<dependency>

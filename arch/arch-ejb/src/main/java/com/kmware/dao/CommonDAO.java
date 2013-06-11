@@ -289,9 +289,17 @@ public class CommonDAO implements ICommonDAO{
 				.getResultList();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.kmware.dao.IBasicDao#getSingleResult(java.lang.String, java.lang.Class)
-	 */
+    @Override
+    public <E> List<E> getEntitiesByDisplayName(String match, int offset, int max, Class<E> klazz) {
+        String query = "SELECT o FROM "+klazz.getName()+" o WHERE LOWER(o.displayName) LIKE :match ORDER BY o.displayName ASC";
+        Map<String,Object> params = new HashMap<String, Object>();
+        params.put("match",match);
+        return getQuery(query,params,offset,max,null,klazz).getResultList();
+    }
+
+    /* (non-Javadoc)
+     * @see com.kmware.dao.IBasicDao#getSingleResult(java.lang.String, java.lang.Class)
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> E getSingleResult(String query, Class<E> klass) {

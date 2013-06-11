@@ -16,6 +16,7 @@ public class Navigation {
 	public static final String COUNTRY="/pages/catalog/country/";
 	public static final String COMPANY="/pages/catalog/company/";
 	public static final String CITY="/pages/catalog/city/";
+    public static final String TAX="/pages/catalog/tax/";
 	public static final String FACES_REDIRECT_PARAM="faces-redirect=true";
 	public static final String ID_PARAM = "id";
 	public String redirectToCountries(){
@@ -32,6 +33,12 @@ public class Navigation {
 		String res = COMPANY+LIST+"?"+FACES_REDIRECT_PARAM;
 		return res;
 	}
+
+    public String redirectToTaxes(){
+        String res = TAX+LIST+"?"+FACES_REDIRECT_PARAM;
+        return res;
+    }
+
 	
 	public String toNew(){
 		String uri = getRequest().getRequestURI();
