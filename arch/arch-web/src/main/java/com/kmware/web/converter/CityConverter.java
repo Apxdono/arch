@@ -4,10 +4,12 @@ import com.kmware.dao.ICommonDAO;
 import com.kmware.model.City;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,7 +19,8 @@ import javax.faces.convert.FacesConverter;
  * To change this template use File | Settings | File Templates.
  */
 
-@FacesConverter(value = "cityConverter",forClass = City.class)
+@Named("cityConverter")
+@RequestScoped
 public class CityConverter implements Converter{
 
     @EJB

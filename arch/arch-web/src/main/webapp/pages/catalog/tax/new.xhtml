@@ -11,26 +11,36 @@
 <ui:composition template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
+
 			<div id="content">
 				<h:panelGrid columns="3">
 					<h:outputLabel id="displayNamelabel" value="Name: *" for="displayNamevalue"/>
-					<h:inputText id="displayNamevalue" value="#{taxCRUD.entity.displayName}" required="true" label="Name" maxlength="255"/>
+					<h:inputText id="displayNamevalue" value="#{taxCRUD.entity.displayName}" label="Name" maxlength="255">
+                        <f:validateRequired disabled="#{param.skipBeanValidation}"/>
+					</h:inputText>
 					<h:message id="displayNamemsg" for="displayNamevalue"/>
-					
-					<h:outputLabel id="deletedLabel" value="Deleted: " for="deletedvalue"/>
+
+					<h:outputLabel id="deletedlabel" value="Deleted: " for="deletedvalue"/>
 					<h:selectBooleanCheckbox id="deletedvalue" value="#{taxCRUD.entity.deleted}" />
 					<h:outputText value="" />
 
-                    <h:outputLabel id="countryLabel" value="Country: *" for="countryValue"/>
-                    <o:selectOneMenu id="countryValue" value="#{taxCRUD.entity.country}" converter="countryConverter" suggestionMode="substring" var="country" readonly="false" >
-                            <f:selectItems value="#{taxCRUD.countryAutocomplete()}" />
-                            <o:column>
-                                <h:outputText value="#{country.displayName}"/>
+                    <h:outputLabel id="countrylabel" value="Country: *" for="countryvalue"/>
+                    <h:selectOneMenu id="countryvalue" value="#{taxCRUD.entity.country}"  required="true" label="Country" converter="#{countryConverter}">
+                           <f:selectItem itemValue="" itemLabel="Choose country"  rendered="#{empty taxCRUD.entity.country.displayName}"/>
+                           <f:selectItems var="i"  value="#{taxCRUD.countries}" itemLabel="#{i.displayName}" itemValue="#{i}"/>
+                           <!--<f:ajax event="change"   execute="@form" render="@form" immediate="true"/>-->
+                           <o:ajax immediate="true" event="change" execute="@this" render="citylabel" >
+                               <f:param name="skipBeanValidation" value="true" />
+                            </o:ajax>
+                    </h:selectOneMenu>
+                    <h:message id="countrymsg" for="countryvalue"/>
 
-                            </o:column>
-
-                    </o:selectOneMenu>
-                    <h:outputText value="" />
+                    <h:outputLabel id="citylabel" value="Country: *" for="cityvalue" rendered="#{not empty taxCRUD.entity.country.displayName}"/>
+                    <h:selectOneMenu id="cityvalue" value="#{taxCRUD.entity.city}"  required="true" label="City" converter="#{cityConverter}" rendered="#{not empty taxCRUD.entity.country.displayName}">
+                           <f:selectItem itemValue="" itemLabel="Choose city" />
+                           <f:selectItems var="i"  value="#{taxCRUD.cities}" itemLabel="#{i.displayName}" itemValue="#{i}"/>
+                    </h:selectOneMenu>
+                    <h:message id="citymsg" for="cityvalue" rendered="#{not empty taxCRUD.entity.country.displayName}"/>
 
 
 				</h:panelGrid>

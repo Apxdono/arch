@@ -5,10 +5,12 @@ import com.kmware.model.City;
 import com.kmware.model.Country;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,7 +20,8 @@ import javax.faces.convert.FacesConverter;
  * To change this template use File | Settings | File Templates.
  */
 
-@FacesConverter(value = "countryConverter",forClass = Country.class)
+@RequestScoped
+@Named("countryConverter")
 public class CountryConverter implements Converter{
 
     @EJB
