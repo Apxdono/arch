@@ -13,13 +13,11 @@
 		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
 			<div id="content">
 
-				<span> <o:inputTextFilter id="global" autoFilterDelay="100"
-						for="table" expression="#{item.displayName}"
-						promptText="Global search" style="width:300px;" /> <span
-					id="global-clear" class="km-clear-btn"><em
-						class="km-icon-clear km-hidden"></em></span> <script>app.initClearButton('#global-clear');</script>
-				</span> <br /> <br />
-				<cst:dataTable id="table" bean="#{countryCRUD}">
+				<o:inputTextFilter id="global" autoFilterDelay="500"
+						for="table" expression="#{item.displayName} #{item.country.displayName} #{item.city.displayName} #{item.company.displayName}"
+						promptText="Global search" style="width:300px;" />
+                <br /> <br />
+				<cst:dataTable id="table" bean="#{taxCRUD}">
 					<ui:define name="columns">
 						<o:column id="displayName" header="Name"
 							sortingExpression="#{item.displayName}">
@@ -35,6 +33,15 @@
 						<o:column id="deleted" header="Deleted" sortingExpression="#{item.deleted}">
 							<h:outputText value="#{item.deleted? 'Yes':'No'}"/>
 						</o:column>
+                        <o:column id="country" header="Country" sortingExpression="#{item.country.displayName}">
+                            <h:outputText value="#{item.country.displayName}"/>
+                        </o:column>
+                        <o:column id="city" header="City" sortingExpression="#{item.city.displayName}">
+                            <h:outputText value="#{item.city.displayName}"/>
+                        </o:column>
+                        <o:column id="company" header="Company" sortingExpression="#{item.company.displayName}">
+                            <h:outputText value="#{item.company.displayName}"/>
+                        </o:column>
 					</ui:define>
 				</cst:dataTable>
 			</div>

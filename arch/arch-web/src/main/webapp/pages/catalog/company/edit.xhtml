@@ -17,19 +17,21 @@
 					<h:message id="displayNamemsg" for="displayNamevalue"/>
 				
 					<h:outputLabel id="citieslabel" value="Cities: " for="citiesvalue"/>
-					<o:twoListSelection id="citiesvalue" value="#{companyCRUD.selected}" leftListboxHeader="Available" rightListboxHeader="Selected">
-						<f:selectItems value="#{companyCRUD.cities}"/>
-					</o:twoListSelection>
+                    <o:twoListSelection id="citiesvalue" value="#{companyCRUD.selected}" leftListboxHeader="Available" rightListboxHeader="Selected">
+                         <f:selectItems value="#{companyCRUD.cities}"/>
+                    </o:twoListSelection>
+
+                    <h:outputLabel id="deletedLabel" value="Deleted: " for="deletedvalue"/>
+                    <h:selectBooleanCheckbox id="deletedvalue" value="#{companyCRUD.entity.deleted}" />
+                    <h:outputText value="" />
+
 				</h:panelGrid>
 			</div>
 			<div id="actions" class="km-actions">
 				<h:commandButton value="Save" styleClass="button">
 					<f:ajax event="click"  listener="#{companyCRUD.update}" execute="@all" render="crudform" />
 				</h:commandButton>
-				<h:commandButton value="Cancel" styleClass="button" action="#{navigation.toView(companyCRUD.entity.id)}">
-					<o:confirmation alignToInvoker="true"/>
-				</h:commandButton>
-			
+				<h:commandButton value="Cancel" styleClass="button" action="#{navigation.toView(companyCRUD.entity.id)}" immediate="true"/>
 			</div>
 		</h:form>
 	</ui:define>

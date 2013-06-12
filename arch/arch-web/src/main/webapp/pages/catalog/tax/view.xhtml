@@ -13,16 +13,25 @@
 			<div id="content">
 				<h:panelGrid columns="2">
 					<h:outputLabel id="displayNamelabel" value="Name: " for="displayNamevalue"/>
-					<h:inputText id="displayNamevalue" value="#{countryCRUD.entity.displayName}" readonly="true"/>
+					<h:inputText id="displayNamevalue" value="#{taxCRUD.entity.displayName}" readonly="true"/>
 			
 					<h:outputLabel id="deletedlabel" value="Deleted: " for="deletedvalue"/>
-					<h:inputText id="deletedvalue" value="#{countryCRUD.entity.deleted?'Yes':'No'}" readonly="true"/>
+					<h:inputText id="deletedvalue" value="#{taxCRUD.entity.deleted?'Yes':'No'}" readonly="true"/>
+
+                    <h:outputLabel id="countrylabel" value="Country: " for="countryvalue"/>
+                    <h:inputText id="countryvalue" value="#{taxCRUD.entity.country.displayName}" readonly="true"/>
+
+                    <h:outputLabel id="citylabel" value="City: " for="cityvalue"/>
+                    <h:inputText id="cityvalue" value="#{taxCRUD.entity.city.displayName}" readonly="true"/>
+
+                    <h:outputLabel id="companylabel" value="Company: " for="companyvalue"/>
+                    <h:inputText id="companyvalue" value="#{taxCRUD.entity.company.displayName}" readonly="true"/>
 			
 				</h:panelGrid>
 	
 			</div>
 			<div id="actions" class="km-actions">
-				<h:commandButton value="Edit" styleClass="button" immediate="true" action="#{navigation.toEdit(countryCRUD.entity.id)}">
+				<h:commandButton value="Edit" styleClass="button" immediate="true" action="#{navigation.toEdit(taxCRUD.entity.id)}">
 				</h:commandButton>
 				<h:commandButton value="List" styleClass="button" immediate="true" action="#{navigation.toList}">
 				</h:commandButton>

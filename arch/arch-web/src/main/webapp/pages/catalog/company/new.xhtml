@@ -12,19 +12,23 @@
 	<ui:define name="content">
 		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
 			<div id="content">
-				<h:panelGrid columns="3">
+				<h:panelGrid columns="6" styleClass="form-table" columnClasses="odd,even,,odd,even,">
 					<h:outputLabel id="displayNamelabel" value="Name: *" for="displayNamevalue"/>
 					<h:inputText id="displayNamevalue" value="#{companyCRUD.entity.displayName}" required="true" label="Name" maxlength="255"/>
 					<h:message id="displayNamemsg" for="displayNamevalue"/>
-				
+                    <h:outputLabel id="deletedLabel" value="Deleted: " for="deletedvalue"/>
+                    <h:selectBooleanCheckbox id="deletedvalue" value="#{companyCRUD.entity.deleted}" />
+                    <h:outputText value="" />
 					<h:outputLabel id="citieslabel" value="Cities: " for="citiesvalue"/>
 					<o:twoListSelection id="citiesvalue" value="#{companyCRUD.selected}" leftListboxHeader="Available" rightListboxHeader="Selected">
 						<f:selectItems value="#{companyCRUD.cities}"/>
 					</o:twoListSelection>
+
+
 				</h:panelGrid>
 	
 			</div>
-			<div id="actions" style="padding:0px 20px;">
+			<div id="actions" class="km-actions">
 				<h:commandButton value="Save record" styleClass="button">
 					<f:ajax event="click"  listener="#{companyCRUD.save}" execute="@all" render="crudform" />
 				</h:commandButton>

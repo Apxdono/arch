@@ -49,3 +49,42 @@ thead tr .km-column {
 	height: 23px;
 	float: right;
 }
+
+.form-table td.form-column.odd{
+    width:120px;
+}
+
+.form-table td.form-column.even{
+    width:200px;
+}
+
+.form-table  td.form-column{
+    padding:3px 0;
+}
+
+.form-table  td.form-column > span{
+    padding:5px 10px;
+    width:100px;
+}
+
+.form-table  td.form-column > label{
+    width:100px;
+    padding:5px 10px;
+    border:none;
+    height:15px;
+}
+
+.form-table  td.form-column > input{
+    width:180px;
+    padding:4px 9px;
+    border:1px solid #292C2F;
+    height:15px;
+}
+
+.form-table  td.form-column > input[type="checkbox"]{
+    border:none;
+    height:14px;
+    float:left;
+    display:block;
+    margin:0 10px;
+}

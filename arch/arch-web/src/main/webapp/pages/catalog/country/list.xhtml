@@ -13,12 +13,10 @@
 		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
 			<div id="content">
 
-				<span> <o:inputTextFilter id="global" autoFilterDelay="100"
+				 <o:inputTextFilter id="global" autoFilterDelay="500"
 						for="table" expression="#{item.displayName}"
-						promptText="Global search" style="width:300px;" /> <span
-					id="global-clear" class="km-clear-btn"><em
-						class="km-icon-clear km-hidden"></em></span> <script>app.initClearButton('#global-clear');</script>
-				</span> <br /> <br />
+						promptText="Global search" style="width:300px;" />
+				 <br /> <br />
 				<cst:dataTable id="table" bean="#{countryCRUD}">
 					<ui:define name="columns">
 						<o:column id="displayName" header="Name"

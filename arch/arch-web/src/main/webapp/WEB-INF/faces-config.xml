@@ -12,4 +12,13 @@
    <var>subtopic_messages</var>
   </resource-bundle>
  </application>
+
+ <render-kit>
+     <renderer>
+         <component-family>javax.faces.Panel</component-family>
+         <renderer-type>javax.faces.Grid</renderer-type>
+         <renderer-class>com.kmware.ui.renderers.ColspanSupportGridRenderer</renderer-class>
+     </renderer>
+
+ </render-kit>
 </faces-config>

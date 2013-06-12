@@ -1,6 +1,7 @@
 package com.kmware.web.bbean.view;
 
 import com.kmware.model.City;
+import com.kmware.model.Company;
 import com.kmware.model.Country;
 import com.kmware.model.Tax;
 import com.kmware.web.bbean.CommonCRUDBean;
@@ -35,12 +36,18 @@ public class TaxCrudBean extends CommonCRUDBean<Tax> {
         return countries;
     }
 
-
     public List<City> getCities(){
         String query = "SELECT c FROM City c WHERE c.deleted = false and c.country.id = :country ORDER BY c.displayName ASC";
         Map<String,Object> params = new HashMap<String, Object>();
         params.put("country",entity.getCountry().getId());
         return dao.getResultList(query, params, 0, 0, City.class);
+    }
+
+    public List<Company> getCompanies(){
+        String query = "SELECT DISTINCT(c) FROM Company c INNER JOIN c.cities cities WHERE c.deleted = false and :city IN cities ORDER BY c.displayName ASC";
+        Map<String,Object> params = new HashMap<String, Object>();
+        params.put("city", entity.getCity());
+        return dao.getResultList(query, params, 0, 0, Company.class);
     }
 
 }

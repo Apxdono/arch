@@ -74,8 +74,8 @@ public abstract class CommonCRUDBean<T extends DBObject> implements
 	
 
 	public void save() {
-		preSave();
-		DAOMessage msg = dao.create(entity);
+        preSave();
+        DAOMessage msg = dao.create(entity);
 		if (msg == DAOMessage.OK) {
 			redirectTo(nav.toList());
 		}
