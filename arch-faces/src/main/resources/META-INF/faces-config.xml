@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+              version="2.0">
+
+
+
+  <!-- TABLE-RELATED COMPONENTS DECLARATION -->
+  <component>
+    <component-type>com.kmware.component.logical.PanelGridCell</component-type>
+    <component-class>com.kmware.component.logical.PanelGridCell</component-class>
+  </component>
+
+  <!--<render-kit>
+    <renderer>
+      <component-family>org.openfaces.DataTable</component-family>
+      <renderer-type>org.openfaces.DataTableRenderer</renderer-type>
+      <renderer-class>org.openfaces.renderkit.table.DataTableRenderer</renderer-class>
+    </renderer>
+  </render-kit>
+
+  <validator>
+    <description>
+      Custom validator
+    </description>
+    <validator-id>
+      org.openfaces.Custom
+    </validator-id>
+    <validator-class>
+      org.openfaces.validator.CustomValidator
+    </validator-class>
+  </validator>-->
+
+</faces-config>
