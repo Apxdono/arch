@@ -1,5 +1,6 @@
 package com.kmware.ui.renderers;
 
+import com.kmware.component.logical.PanelGridCell;
 import com.sun.faces.renderkit.html_basic.GridRenderer;
 import org.openfaces.component.select.TwoListSelection;
 
@@ -56,9 +57,10 @@ public class ColspanSupportGridRenderer extends GridRenderer {
             }
             renderRow(context, component, child, writer);
             if(this.isColspanNeeded(child)){
+                i =  i + ((PanelGridCell)child).getColspan();
+            } else {
                 i++;
             }
-            i++;
 
         }
         if (open) {
@@ -80,11 +82,8 @@ public class ColspanSupportGridRenderer extends GridRenderer {
         TableMetaInfo info = getMetaInfo(context, table);
         writer.startElement("td", table);
         if(this.isColspanNeeded(child)){
-            int cols = info.columns.size();
-            if(cols > 2){
-                cols = cols -1;
+                int cols = ((PanelGridCell)child).getColspan();
                 writer.writeAttribute("colspan",cols,null);
-            }
         }
         String columnClass = info.getCurrentColumnClass();
         //TODO make static field
@@ -105,7 +104,7 @@ public class ColspanSupportGridRenderer extends GridRenderer {
     }
 
     private boolean isColspanNeeded(UIComponent child){
-        if(child instanceof TwoListSelection){
+        if(child instanceof PanelGridCell){
             return true;
         }
         return false;

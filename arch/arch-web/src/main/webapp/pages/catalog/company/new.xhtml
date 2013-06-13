@@ -6,7 +6,8 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:cst="http://kmware.com/ui"
-	xmlns:o="http://openfaces.org/">
+	xmlns:o="http://openfaces.org/"
+    xmlns:km="http://kmware.com/faces">
 
 <ui:composition template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
@@ -20,9 +21,11 @@
                     <h:selectBooleanCheckbox id="deletedvalue" value="#{companyCRUD.entity.deleted}" />
                     <h:outputText value="" />
 					<h:outputLabel id="citieslabel" value="Cities: " for="citiesvalue"/>
-					<o:twoListSelection id="citiesvalue" value="#{companyCRUD.selected}" leftListboxHeader="Available" rightListboxHeader="Selected">
-						<f:selectItems value="#{companyCRUD.cities}"/>
-					</o:twoListSelection>
+                    <km:panelGridCell colspan="4">
+					    <o:twoListSelection id="citiesvalue" value="#{companyCRUD.selected}" leftListboxHeader="Available" rightListboxHeader="Selected">
+						    <f:selectItems value="#{companyCRUD.cities}"/>
+					    </o:twoListSelection>
+                    </km:panelGridCell>
 
 
 				</h:panelGrid>
