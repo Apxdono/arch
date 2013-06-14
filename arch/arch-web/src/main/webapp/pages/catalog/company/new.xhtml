@@ -13,7 +13,7 @@
 	<ui:define name="content">
 		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
 			<div id="content">
-				<h:panelGrid columns="6" styleClass="form-table" columnClasses="odd,even,,odd,even,">
+				<h:panelGrid columns="6" columnClasses="odd,even,,odd,even,">
 					<h:outputLabel id="displayNamelabel" value="Name: *" for="displayNamevalue"/>
 					<h:inputText id="displayNamevalue" value="#{companyCRUD.entity.displayName}" required="true" label="Name" maxlength="255"/>
 					<h:message id="displayNamemsg" for="displayNamevalue"/>

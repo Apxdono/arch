@@ -1,8 +1,7 @@
-package com.kmware.ui.renderers;
+package com.kmware.renderkit.panel;
 
 import com.kmware.component.logical.PanelGridCell;
 import com.sun.faces.renderkit.html_basic.GridRenderer;
-import org.openfaces.component.select.TwoListSelection;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -18,6 +17,14 @@ import java.util.Iterator;
  * To change this template use File | Settings | File Templates.
  */
 public class ColspanSupportGridRenderer extends GridRenderer {
+
+    @Override
+    public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+        String styleClass = (String) component.getAttributes().get("styleClass");
+        styleClass = ((styleClass == null)? "form-table":styleClass+" form-table");
+        component.getAttributes().put("styleClass",styleClass);
+        super.encodeBegin(context, component);    //To change body of overridden methods use File | Settings | File Templates.
+    }
 
     @Override
     public void encodeChildren(FacesContext context, UIComponent component)
@@ -57,7 +64,13 @@ public class ColspanSupportGridRenderer extends GridRenderer {
             }
             renderRow(context, component, child, writer);
             if(this.isColspanNeeded(child)){
-                i =  i + ((PanelGridCell)child).getColspan();
+                int colspan = ((PanelGridCell)child).getColspan();
+                if(i+colspan % columnCount > 0){
+                    renderRowEnd(context,component,writer);
+                    renderRowStart(context,component,writer);
+                    i = 0;
+                }
+                i+=colspan;
             } else {
                 i++;
             }

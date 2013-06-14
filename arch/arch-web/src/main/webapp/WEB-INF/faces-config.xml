@@ -13,12 +13,12 @@
   </resource-bundle>
  </application>
 
- <render-kit>
+<!-- <render-kit>
      <renderer>
          <component-family>javax.faces.Panel</component-family>
          <renderer-type>javax.faces.Grid</renderer-type>
-         <renderer-class>com.kmware.ui.renderers.ColspanSupportGridRenderer</renderer-class>
+         <renderer-class>com.kmware.renderkit.panel.ColspanSupportGridRenderer</renderer-class>
      </renderer>
 
- </render-kit>
+ </render-kit>-->
 </faces-config>
