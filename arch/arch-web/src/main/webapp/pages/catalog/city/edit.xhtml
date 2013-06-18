@@ -5,13 +5,14 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:km="http://kmware.com/faces"
 	xmlns:cst="http://kmware.com/ui">
 
 <ui:composition template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
 			<div id="content">
-				<h:panelGrid columns="3">
+                <km:panelGrid columns="3" columnClasses="odd,even,">
 					<h:outputLabel id="displayNamelabel" value="Name: *" for="displayNamevalue"/>
 					<h:inputText id="displayNamevalue" value="#{cityCRUD.entity.displayName}" required="true" label="Name" />
 					<h:message id="displayNamemsg" for="displayNamevalue"/>
@@ -30,7 +31,7 @@
 						<f:selectItems value="#{cityCRUD.countries}" var="item" itemLabel="#{item.displayName}" itemValue="#{item}"/>
 					</h:selectOneMenu>
 					<h:message id="countrymsg" for="countryvalue"/>
-				</h:panelGrid>
+				</km:panelGrid>
 	
 			</div>
 			<div id="actions" class="km-actions">

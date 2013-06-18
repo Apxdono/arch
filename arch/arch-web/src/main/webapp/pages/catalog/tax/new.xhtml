@@ -5,6 +5,7 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:km="http://kmware.com/faces"
 	xmlns:cst="http://kmware.com/ui"
 	xmlns:o="http://openfaces.org/">
 
@@ -12,12 +13,12 @@
 	<ui:define name="content">
 		<h:form id="crudform" prependId="false" acceptcharset="UTF-8">
 			<div id="content">
-                <h:panelGrid columns="3">
+                <km:panelGrid columns="3" columnClasses="odd,even,">
                     <h:outputLabel id="displayNamelabel" value="Name: *" for="displayNamevalue"/>
                     <h:inputText id="displayNamevalue" value="#{taxCRUD.entity.displayName}" label="Name" maxlength="255" required="#{param['javax.faces.source'] == 'saveButton'}"/>
                     <h:message id="displayNamemsg" for="displayNamevalue"/>
 
-                    <h:outputLabel id="deletedlabel" value="Deleted: " for="deletedvalue"/>
+                    <h:outputLabel id="deletedlabel" value="Deleted:&#160;&#160;" for="deletedvalue"/>
                     <h:selectBooleanCheckbox id="deletedvalue" value="#{taxCRUD.entity.deleted}" />
                     <h:outputText value="" />
 
@@ -44,7 +45,7 @@
                     </h:selectOneMenu>
                     <h:message id="companymsg" for="companyvalue" rendered="#{not empty taxCRUD.entity.city.displayName and not empty taxCRUD.entity.country.displayName}"/>
 
-                </h:panelGrid>
+                </km:panelGrid>
 			</div>
 			<div id="actions" style="padding:0px 20px;" class="km-actions">
 				<h:commandButton id="saveButton" value="Save record" styleClass="button">

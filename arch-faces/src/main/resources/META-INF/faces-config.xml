@@ -12,6 +12,11 @@
     <component-class>com.kmware.component.logical.PanelGridCell</component-class>
   </component>
 
+    <component>
+        <component-type>com.kmware.component.panel.PanelGrid</component-type>
+        <component-class>com.kmware.component.panel.PanelGrid</component-class>
+    </component>
+
   <!--<render-kit>
     <renderer>
       <component-family>org.openfaces.DataTable</component-family>
@@ -34,7 +39,7 @@
 
   <render-kit>
         <renderer>
-            <component-family>javax.faces.Panel</component-family>
+            <component-family>com.kmware.component.panel.PanelGrid</component-family>
             <renderer-type>javax.faces.Grid</renderer-type>
             <renderer-class>com.kmware.renderkit.panel.ColspanSupportGridRenderer</renderer-class>
         </renderer>

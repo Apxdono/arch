@@ -17,13 +17,17 @@ import java.util.Iterator;
  * To change this template use File | Settings | File Templates.
  */
 public class ColspanSupportGridRenderer extends GridRenderer {
+    private static final String STYLE_CLASS_KEY = "styleClass";
+    private static final String CLASS_KEY = "class";
+    private static final String GRID_STYLE_CLASS = "form-table";
+    private static final String GRID_CELL_STYLE_CLASS = "form-column";
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
-        String styleClass = (String) component.getAttributes().get("styleClass");
-        styleClass = ((styleClass == null)? "form-table":styleClass+" form-table");
-        component.getAttributes().put("styleClass",styleClass);
-        super.encodeBegin(context, component);    //To change body of overridden methods use File | Settings | File Templates.
+        String styleClass = (String) component.getAttributes().get(STYLE_CLASS_KEY);
+        styleClass = ((styleClass == null)? GRID_STYLE_CLASS:styleClass+" "+GRID_STYLE_CLASS);
+        component.getAttributes().put(STYLE_CLASS_KEY,styleClass);
+        super.encodeBegin(context, component);
     }
 
     @Override
@@ -62,19 +66,16 @@ public class ColspanSupportGridRenderer extends GridRenderer {
                 open = true;
                 info.newRow();
             }
-            renderRow(context, component, child, writer);
-            if(this.isColspanNeeded(child)){
-                int colspan = ((PanelGridCell)child).getColspan();
-                if(i+colspan % columnCount > 0){
-                    renderRowEnd(context,component,writer);
-                    renderRowStart(context,component,writer);
-                    i = 0;
-                }
-                i+=colspan;
-            } else {
+
+            if(isColspanNeeded(child)){
+                PanelGridCell cell = (PanelGridCell) child;
+                cell.setColspan(columnCount - (i % columnCount));
+                renderRow(context, component, cell, writer);
+                i=0;
+            }  else {
+                renderRow(context, component, child, writer);
                 i++;
             }
-
         }
         if (open) {
             renderRowEnd(context, component, writer);
@@ -94,14 +95,9 @@ public class ColspanSupportGridRenderer extends GridRenderer {
 
         TableMetaInfo info = getMetaInfo(context, table);
         writer.startElement("td", table);
-        if(this.isColspanNeeded(child)){
-                int cols = ((PanelGridCell)child).getColspan();
-                writer.writeAttribute("colspan",cols,null);
-        }
         String columnClass = info.getCurrentColumnClass();
-        //TODO make static field
-        columnClass = (columnClass == null) ? " form-column ":columnClass + " form-column ";
-        writer.writeAttribute("class", columnClass, "columns");
+        columnClass = (columnClass == null) ? GRID_CELL_STYLE_CLASS :columnClass + " "+GRID_CELL_STYLE_CLASS;
+        writer.writeAttribute(CLASS_KEY, columnClass, "columns");
         encodeRecursive(context, child);
         writer.endElement("td");
         writer.writeText("\n", table, null);
