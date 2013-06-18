@@ -32,4 +32,12 @@
     </validator-class>
   </validator>-->
 
+  <render-kit>
+        <renderer>
+            <component-family>javax.faces.Panel</component-family>
+            <renderer-type>javax.faces.Grid</renderer-type>
+            <renderer-class>com.kmware.renderkit.panel.ColspanSupportGridRenderer</renderer-class>
+        </renderer>
+  </render-kit>
+
 </faces-config>
