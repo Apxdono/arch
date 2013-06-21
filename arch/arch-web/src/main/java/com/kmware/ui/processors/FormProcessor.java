@@ -74,7 +74,6 @@ public class FormProcessor {
 
 	protected void processVisibleFields(Object o,Map<String, FormFieldset> bufferSets) {
 		List<Method> methods = getMethods(o);
-		methods = getMethods(o);
 
 		for (Method method : methods) {
 			if (method.getName().startsWith("get")) {

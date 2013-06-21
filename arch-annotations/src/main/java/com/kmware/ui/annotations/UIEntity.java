@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 @Target(value={ElementType.TYPE})
 @Inherited
 public @interface UIEntity {
-	public UIFieldset[] fieldsets() default {@UIFieldset()};
+	public UIFieldset[] fieldsets() default {};
 	public String resourceBundle() default "";
 }

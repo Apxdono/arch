@@ -16,6 +16,12 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 import com.kmware.jpa.annotations.TrackChanges;
+import com.kmware.ui.annotations.EditField;
+import com.kmware.ui.constant.StringConstants;
+import com.kmware.ui.enums.FormInputType;
+
+import static com.kmware.ui.constant.StringConstants.*;
+import static com.kmware.ui.enums.FormInputType.*;
 
 
 @MappedSuperclass
@@ -47,8 +53,9 @@ public abstract class DBObject implements Serializable, Cloneable {
 		return id;
 	}
 	
-	@TrackChanges
+
 	@Column(name="display_name",length=255,nullable=false)
+    @EditField(label = "displayName",required = BOOLEAN_TRUE)
 	public String getDisplayName() {
 		return displayName;
 	}
@@ -58,8 +65,8 @@ public abstract class DBObject implements Serializable, Cloneable {
 		return version;
 	}
 
-	@TrackChanges
 	@Column(name="deleted",nullable=false)
+    @EditField(label = "deleted",type = CHECKBOX)
 	public Boolean getDeleted() {
 		return deleted;
 	}
