@@ -50,7 +50,12 @@
             <version>6.0</version>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.kmware</groupId>
+            <artifactId>arch-annotations</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

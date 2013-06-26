@@ -11,6 +11,8 @@ import com.kmware.ui.enums.FormInputType;
  */
 public class EditField {
 
+
+    String id;
     FormInputType type;
     String label;
     String value;
@@ -19,11 +21,23 @@ public class EditField {
     int maxLength;
     String required;
     String rendered;
+    String values;
+    String var;
+    String itemLabel;
+    String itemValue;
+    String converter;
 
     public EditField(){
 
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public FormInputType getType() {
         return type;
@@ -89,4 +103,60 @@ public class EditField {
         this.rendered = rendered;
     }
 
+    public String getValues(){
+        return values;
+    }
+
+    public void setValues(String values){
+        this.values = values;
+    }
+
+    public String getVar() {
+        return var;
+    }
+
+    public void setVar(String var) {
+        this.var = var;
+    }
+
+    public String getItemLabel() {
+        return itemLabel;
+    }
+
+    public void setItemLabel(String itemLabel) {
+        this.itemLabel = itemLabel;
+    }
+
+    public String getItemValue() {
+        return itemValue;
+    }
+
+    public void setItemValue(String itemValue) {
+        this.itemValue = itemValue;
+    }
+
+    public String getConverter() {
+        return converter;
+    }
+
+    public void setConverter(String converter) {
+        this.converter = converter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EditField editField = (EditField) o;
+
+        if (!id.equals(editField.id)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }
